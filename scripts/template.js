@@ -12,7 +12,7 @@ function getPokemonTemplate(pokemon, index) {
 }
 
 
-function getPokemonSingleTemplate(pokemon, index) {
+function getPokemonCardTemplate(pokemon, index) {
 
   return /*html*/ `
       <div class="pokemon_card">

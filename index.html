@@ -1,17 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokedéx</title>
+    <link rel="shortcut icon" href="./assets/img/pokeball.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Monda:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./styles/standard.css" />
+    <link rel="stylesheet" href="./styles/fonts.css" />
+    <link rel="stylesheet" href="./styles/assets.css" />
     <script src="./script.js"></script>
-    <script src="./template.js"></script>
-</head>
-<body onload="fetchDataJsonPokemonDetails()">
-    <div id="content"></div>
-</body>
+    <script src="./scripts/template.js"></script>
+  </head>
+  <body onload="fetchDataJsonPokemonDetails()">
+    <header>
+      <div class="content-width">
+        <img src="./assets/img/pokeball.png" alt="Pokeball" class="pokeball_img" />
+        <h1>Pokedéx</h1>
+      </div>
+    </header>
+     <section class="content_section">
+      <div id="content"></div>
+     </section>
+    <footer>
+     <p class="copyright_footer">&#169 2026 Pokedéx designed by Jonas Hildebrand</p>
+    </footer>
+  </body>
 </html>
 
-
 <p></p>
+<div></div>
