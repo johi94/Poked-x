@@ -86,7 +86,7 @@ main {
   flex-direction: column;
   height: 350px;
   width: 300px;
-  border-radius: 25%;
+  border-radius: 12%;
 }
 
 .pokemon_img {

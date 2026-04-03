@@ -1,6 +1,20 @@
 #open_pokemon_card {
   background: rgb(25, 25, 25);
+  height: 350px;
+  width: 300px;
+  border: 4px solid white;
+  border-radius: 12%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
 }
+
+/* Höhe Breite ggf. nochmal ändern, border color neu oder nicht? */
+
+
 
 #open_pokemon_card::backdrop {
   background: rgba(0, 0, 0, 0.5);
@@ -16,3 +30,5 @@
 #open_pokemon_card.opened {
   overscroll-behavior: contain;
 }
+
+/*  */
