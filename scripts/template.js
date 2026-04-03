@@ -3,7 +3,7 @@ function getPokemonTemplate(pokemon, index) {
   return /*html*/ `
       <div class="pokemon_card">
        <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img">
-       <p class="pokedex_number">Nr. 000${index + 1}</p>
+       <p class="pokedex_number">Nr. ${String(index + 1).padStart(4, '0')}</p>
         <h2>${pokemon.name.toUpperCase()}</h2>
           <div class="types-container">
            ${pokemon.types.map(t => `<span class="type-${t.type.name}">${t.type.name}</span>`).join(' ')}
