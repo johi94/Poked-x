@@ -21,13 +21,21 @@
   <body onload="fetchDataJsonPokemonDetails()">
     <header>
       <div class="content-width">
-        <img src="./assets/img/pokeball.png" alt="Pokeball" class="pokeball_img" />
-        <h1>Pokedéx</h1>
+        <div class="logo_title_container">
+         <img src="./assets/img/pokeball.png" alt="Pokeball" class="pokeball_img" />
+         <h1>Pokedéx</h1>
+        </div>
+        <div class="search_btn_input">
+         <button class="search_button">search</button>
+         <input type="search" placeholder="search Pokémon" title="search">
+        </div>
       </div>
     </header>
+    <main>
      <section class="content_section">
       <div id="content"></div>
      </section>
+     </main>
     <footer>
      <p class="copyright_footer">&#169 2026 Pokedéx designed by Jonas Hildebrand</p>
     </footer>
