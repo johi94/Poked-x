@@ -1,13 +1,33 @@
 * {
-    font-family: "Monda", sans-serif;
+  font-family: "Monda", sans-serif;
 }
 
 h1 {
-    font-size: 80px;
-    font-weight: 700;
+  font-size: 80px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.search_btn {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.search_input {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.pokedex_number {
+  font-size: 16px;
+  font-weight: 300;
 }
 
 .copyright_footer {
-    font-size: 40px;
-    font-weight: 300;
+  font-size: 40px;
+  font-weight: 300;
 }

@@ -29,6 +29,27 @@ header {
     align-items: center;
     justify-content: center;
     margin-right: 24px;
+    gap: 16px;
+}
+
+.search_btn {
+    width: 100px;
+    border-radius: 15px;
+}
+
+.search_btn:hover {
+cursor: pointer;
+}
+
+/* add drop-shadow to button*/
+
+.search_input {
+    border-radius: 15px;
+    text-align: center;
+}
+
+.search_input:hover {
+cursor: pointer;
 }
 
 h1 {
