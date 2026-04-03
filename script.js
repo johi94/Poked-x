@@ -1,3 +1,5 @@
+const pokemonCardRef = document.getElementById("open_pokemon_card")
+
 function renderPokemon(pokemonArray) {
     let content = document.getElementById('content');
     content.innerHTML = ""; // Vorher leeren, damit nichts doppelt erscheint
@@ -58,3 +60,33 @@ async function fetchDataJsonPokemonDetails() {
         console.error("Fehler:", error);
 }
 }
+
+// #end-region fetch data from API
+
+
+// #start-region open and close dialog (Pokémon-Card)
+
+
+function openPokemonCardDialog() {
+ pokemonCardRef.showModal();
+ pokemonCardRef.classList.add("opened");
+ document.body.style.overflow = "hidden"; // hide scrollbar from body while dialog opened
+}
+
+
+function closePokemonCardDialog() {
+ pokemonCardRef.close();
+ pokemonCardRef.classList.remove("opened");
+ document.body.style.overflow = "visible"; // show scrollbar from body again after dialog is closed
+}
+
+ pokemonCardRef.addEventListener("cancel", closePokemonCardDialog); // close dialog with ESC
+ 
+ pokemonCardRef.addEventListener("click", (e) => { // close dialog by clicking outside of dialog
+  if (e.target === pokemonCardRef) {              // don't close dialog by clicking inside of Dialog or Element inside of dialog
+    closePokemonCardDialog();
+  }
+});
+
+
+// #end-region open and close dialog (Pokémon-Card)

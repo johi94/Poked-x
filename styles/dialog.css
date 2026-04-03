@@ -1,0 +1,18 @@
+#open_pokemon_card {
+  background: rgb(25, 25, 25);
+}
+
+#open_pokemon_card::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: all 2s ease-in;
+}
+
+#open_pokemon_card.opened::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+}
+
+#open_pokemon_card.opened {
+  overscroll-behavior: contain;
+}
