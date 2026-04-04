@@ -1,5 +1,7 @@
 const pokemonCardRef = document.getElementById("open_pokemon_card")
 
+// #start-region renderPokemon on Website and Dialog (pokemon-card)
+
 function renderPokemon(pokemonArray) {
     let content = document.getElementById('content');
     content.innerHTML = ""; // Vorher leeren, damit nichts doppelt erscheint
@@ -11,6 +13,13 @@ function renderPokemon(pokemonArray) {
     }
 }
 
+
+
+
+
+
+
+// #end-region renderPokemon on Website and Dialog (pokemon-card)
 
 // #start-region fetch data from API
 

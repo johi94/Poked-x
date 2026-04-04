@@ -89,6 +89,13 @@ main {
   border-radius: 12%;
 }
 
+.number_name_types {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
 .pokemon_img {
   height: 150px;
   width: auto;
