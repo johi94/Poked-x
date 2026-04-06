@@ -1,7 +1,6 @@
 let currentPokemonList = [];
 let pokemonCardRef = document.getElementById("open_pokemon_card");
 
-
 // #start-region renderPokemon on Website and Dialog (pokemon-card)
 
 function renderPokemon(pokemonArray) {
@@ -72,13 +71,13 @@ async function fetchDataJsonPokemonDetails() {
     pokemonCardRef = document.getElementById("open_pokemon_card");
 
     if (pokemonCardRef) {
-      
       pokemonCardRef.addEventListener("cancel", closePokemonCardDialog); // close dialog with ESC
 
-      
-      pokemonCardRef.addEventListener("click", (e) => { // close dialog by clicking outside of dialog
-        if (e.target === pokemonCardRef) {             // don't close dialog by clicking inside of Dialog or Element inside of dialog
-     
+      pokemonCardRef.addEventListener("click", (e) => {
+        // close dialog by clicking outside of dialog
+        if (e.target === pokemonCardRef) {
+          // don't close dialog by clicking inside of Dialog or Element inside of dialog
+
           closePokemonCardDialog();
         }
       });
@@ -95,7 +94,6 @@ async function fetchDataJsonPokemonDetails() {
 // #start-region open and close dialog (Pokémon-Card)
 
 function openPokemonCardDialog(index) {
-  
   renderPokemonCard(index);
 
   pokemonCardRef.showModal();
@@ -108,6 +106,5 @@ function closePokemonCardDialog() {
   pokemonCardRef.classList.remove("opened");
   document.body.style.overflow = "visible"; // show scrollbar from body again after dialog is closed
 }
-
 
 // #end-region open and close dialog (Pokémon-Card)
