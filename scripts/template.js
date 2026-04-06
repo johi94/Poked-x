@@ -1,7 +1,7 @@
 function getPokemonTemplate(pokemon, index) {
 
   return /*html*/ `
-      <div class="pokemon_card" onclick="openPokemonCardDialog()">
+      <div class="pokemon_card" onclick="openPokemonCardDialog(${index})">
        <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img">
         <div class="number_name_types">
          <p class="pokedex_number">Nr. ${String(index + 1).padStart(4, '0')}</p>
@@ -20,7 +20,7 @@ function getPokemonTemplate(pokemon, index) {
 function getPokemonCardTemplate(pokemon, index) {
 
   return /*html*/ `
-      <div class="pokemon_card">
+      <div class="pokemon_card_open">
         <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}">
          <p class="pokedex_number">Nr. ${String(index + 1).padStart(4, '0')}</p>
           <h2>${pokemon.name.toUpperCase()}</h2>
