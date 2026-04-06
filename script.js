@@ -53,7 +53,7 @@ async function fetchDataJsonPokeApi() {
 
 async function fetchDataJsonPokemonDetails() {
   try {
-    let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
+    let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=30");
     let responseAsJson = await response.json();
     let pokemonData = [];
 
