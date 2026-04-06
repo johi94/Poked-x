@@ -84,8 +84,8 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 350px;
-  width: 300px;
+  height: 500px;
+  width: 350px;
   border-radius: 12%;
 }
 
@@ -97,18 +97,28 @@ main {
 }
 
 .pokemon_img {
-  height: 150px;
-  width: auto;
+  height: 250px;
+  width: 250px;
+  border-radius: 12%;
+  object-fit: contain;
 }
 
 .pokedex_number {
   color: rgb(150, 150, 150);
+  padding-top: 16px;
 }
 
-/* muss noch angepasst werden spezifisch dem Typ- /en entsprechend  */
-.types-container {
-  background: white;
+h2 {
+  padding-bottom: 16px;
 }
+
+.type-badge {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  color: black;
+  border-radius: 5%;
+} 
 
 .copyright_footer {
   color: antiquewhite;
