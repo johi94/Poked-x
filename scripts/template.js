@@ -20,7 +20,7 @@ function getPokemonTemplate(pokemon, index) {
         <div class="number_name_types">
          <p class="pokedex_number">Nr. ${String(index + 1).padStart(4, '0')}</p>
          <h2>${pokemon.name.toUpperCase()}</h2>
-          <div class="types-container">
+          <div>
            ${pokemon.types.map(t => {
              const bgColor = typeColors[t.type.name];
              return `<span class="type-badge" style="background-color: ${bgColor}">${t.type.name}</span>`;
@@ -44,30 +44,32 @@ function getPokemonCardTemplate(pokemon, index) {
  const color2 = typeColors[type2];
 
   return /*html*/ `
-      <div class="pokemon_card_open">
-       <p class="pokedex_number_open"># ${String(index + 1).padStart(4, '0')}</p>
-        <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img_open" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
-          <h2 class="h2_open">${pokemon.name.toUpperCase()}</h2>
-            <p class="flavor_text">"${pokemon.description_text}"</p>
-            <p class="statistics_open">Statistics:</p>
-             <div class="height_weight_open">
-              <p>height: ${(pokemon.height / 10).toFixed(1).replace(".", ",")} m</p>
-              <p>weight: ${(pokemon.weight / 10).toFixed(1).replace(".", ",")} kg</p>
-             </div>
-             <div class="height_weight_open">
-              <p>HP: ${pokemon.stats[0].base_stat}</p>
-              <p>attack: ${pokemon.stats[1].base_stat}</p>
-              <p>defense: ${pokemon.stats[2].base_stat}</p>
-              <p>special attack: ${pokemon.stats[3].base_stat}</p>
-              <p>special defense: ${pokemon.stats[4].base_stat}</p>
-              <p>speed: ${pokemon.stats[5].base_stat}</p>          
-             </div>
-               <div class="types-container">
+   <div class="pokemon_card_open">
+    <p class="pokedex_number_open"># ${String(index + 1).padStart(4, '0')}</p>
+     <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img_open" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
+      <div class="name_type_open">
+        <h2 class="h2_open">${pokemon.name.toUpperCase()}</h2>
+          <div class="types_open"> 
+           <p class="p_tag_type_open">Type:</p>
                 ${pokemon.types.map(t => {
                  const bgColor = typeColors[t.type.name];
-                 return `<span class="type-badge" style="background-color: ${bgColor}">${t.type.name}</span>`;
+                 return `<span class="type-badge-open" style="background-color: ${bgColor}">${t.type.name}</span>`;
                 }).join(' ')}
-               </div>
+            </div>
+        </div>
+            <p class="flavor_text">"${pokemon.description_text}"</p>
+             <div class="statistics_open">
+              <p>Statistics:</p>
+               <p>height: ${(pokemon.height / 10).toFixed(1).replace(".", ",")} m</p>
+               <p>HP: ${pokemon.stats[0].base_stat}</p>
+               <p>attack: ${pokemon.stats[1].base_stat}</p>
+               <p>weight: ${(pokemon.weight / 10).toFixed(1).replace(".", ",")} kg</p>
+               <p>defense: ${pokemon.stats[2].base_stat}</p>
+               <p>special attack: ${pokemon.stats[3].base_stat}</p>
+               <p>special defense: ${pokemon.stats[4].base_stat}</p>
+               <p>speed: ${pokemon.stats[5].base_stat}</p> 
+             </div>
+               
       </div>
       `;
 }

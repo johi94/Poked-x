@@ -41,33 +41,61 @@
   padding-bottom: 4px;
 }
 
-.pokemon_img_open {
-  width: 400px;
-  height: 400px;
-  margin-left: 24px;
-}
-
-.h2_open {
-  padding-left: 24px;
-}
-
 .pokedex_number_open {
   color: rgb(150, 150, 150);
   padding-top: 24px;
   padding-left: 24px;
 }
 
+.pokemon_img_open {
+  width: 380px;
+  height: 380px;
+  margin-left: 24px;
+  border-radius: 50%;
+}
+
+.h2_open {
+  padding-left: 24px;
+  padding-bottom: 0;
+}
+
+.name_type_open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: antiquewhite;
+}
+
+.types_open {
+  display: flex;
+  align-items: center;
+}
+
+.p_tag_type_open {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.type-badge-open {
+  text-align: center;
+  height: 40px;
+  width: 100px;
+  color: black;
+  border-radius: 5%;
+  margin-right: 24px;
+}
+
 .flavor_text {
   color: antiquewhite;
+  margin: 24px;
 }
 
 .statistics_open {
   color: antiquewhite;
   padding-left: 16px;
-}
-
-.height_weight_open {
-  color: antiquewhite;
+  background: rgb(50, 170, 210);
+  width: 750px;
+  margin: 24px;
 }
 
 /*  */

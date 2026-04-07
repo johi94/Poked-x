@@ -16,6 +16,11 @@ h2 {
   font-size: 40px;
 }
 
+.p_tag_type_open {
+  font-size: 30px;
+  font-weight: 300;
+}
+
 .search_btn {
   font-size: 16px;
   font-weight: 300;
@@ -41,13 +46,13 @@ h2 {
   font-family: 400;
 }
 
-.height_weight_open {
-  font-size: 20px;
-  font-weight: 300;
-}
 
 .type-badge {
   font-size: 20px;
+}
+
+.type-badge-open {
+  font-size: 25px;
 }
 
 .copyright_footer {
