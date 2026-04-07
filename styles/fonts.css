@@ -41,9 +41,14 @@ h2 {
   font-weight: 300;
 }
 
+.flavor_text {
+  font-size: 20px;
+  font-weight: 300;
+}
+
 .statistics_open {
   font-size: 25px;
-  font-family: 400;
+  font-weight: 400;
 }
 
 
