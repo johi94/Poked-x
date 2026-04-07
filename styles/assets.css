@@ -1,0 +1,44 @@
+.search_btn_input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24px;
+  gap: 16px;
+}
+
+.search_btn {
+  width: 100px;
+  border-radius: 15px;
+}
+
+.search_btn:hover {
+  cursor: pointer;
+}
+
+/* add drop-shadow to button*/
+
+.search_input {
+  border-radius: 15px;
+  text-align: center;
+}
+
+.search_input:hover {
+  cursor: pointer;
+}
+
+.load_pokemon_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 16px;
+}
+
+#load_more_pokemon {
+  width: 200px;
+  border-radius: 15px;
+  background: antiquewhite;
+}
+
+.load_more_pokemon:hover {
+    cursor: pointer;
+}

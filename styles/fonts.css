@@ -12,6 +12,10 @@ h2 {
   font-weight: 500;
 }
 
+.h2_open {
+  font-size: 40px;
+}
+
 .search_btn {
   font-size: 16px;
   font-weight: 300;
@@ -24,6 +28,16 @@ h2 {
 
 .pokedex_number {
   font-size: 25px;
+  font-weight: 300;
+}
+
+.pokedex_number_open {
+  font-size: 35px;
+  font-weight: 300;
+}
+
+.height_weight_open {
+  font-size: 20px;
   font-weight: 300;
 }
 

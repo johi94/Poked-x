@@ -40,17 +40,19 @@ function getPokemonCardTemplate(pokemon, index) {
 
   return /*html*/ `
       <div class="pokemon_card_open">
-        <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}">
-         <p class="pokedex_number">Nr. ${String(index + 1).padStart(4, '0')}</p>
-          <h2>${pokemon.name.toUpperCase()}</h2>
-           <p>height: ${(pokemon.height / 10).toFixed(1).replace(".", ",")} m</p>
-           <p>weight: ${(pokemon.weight / 10).toFixed(1).replace(".", ",")} kg</p>
-            <div class="types-container">
-             ${pokemon.types.map(t => {
-              const bgColor = typeColors[t.type.name];
-              return `<span class="type-badge" style="background-color: ${bgColor}">${t.type.name}</span>`;
-             }).join(' ')}
+      <p class="pokedex_number_open"># ${String(index + 1).padStart(4, '0')}</p>
+        <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img_open">
+          <h2 class="h2_open">${pokemon.name.toUpperCase()}</h2>
+           <div class="height_weight_open">
+            <p>height: ${(pokemon.height / 10).toFixed(1).replace(".", ",")} m</p>
+            <p>weight: ${(pokemon.weight / 10).toFixed(1).replace(".", ",")} kg</p>
             </div>
+             <div class="types-container">
+              ${pokemon.types.map(t => {
+               const bgColor = typeColors[t.type.name];
+               return `<span class="type-badge" style="background-color: ${bgColor}">${t.type.name}</span>`;
+              }).join(' ')}
+             </div>
       </div>
       `;
 }

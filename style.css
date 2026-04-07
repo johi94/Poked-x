@@ -24,34 +24,6 @@ header {
   padding-top: 20px;
 }
 
-.search_btn_input {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 24px;
-    gap: 16px;
-}
-
-.search_btn {
-    width: 100px;
-    border-radius: 15px;
-}
-
-.search_btn:hover {
-cursor: pointer;
-}
-
-/* add drop-shadow to button*/
-
-.search_input {
-    border-radius: 15px;
-    text-align: center;
-}
-
-.search_input:hover {
-cursor: pointer;
-}
-
 h1 {
   color: antiquewhite;
   padding-left: 16px;
@@ -63,6 +35,7 @@ h2 {
 
 main {
   flex: 1;
+  background: rgb(100, 100, 100);
 }
 
 #content {
@@ -71,10 +44,6 @@ main {
   justify-content: center;
   max-width: 1920px;
   margin: 0 auto;
-}
-
-.content_section {
-  background: rgb(100, 100, 100);
 }
 
 .pokemon_card {

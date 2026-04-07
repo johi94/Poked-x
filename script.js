@@ -1,5 +1,7 @@
 let currentPokemonList = [];
-let pokemonCardRef = document.getElementById("open_pokemon_card");
+let pokemonCardRef;
+let currentOffset = 0;
+let limit = 20;
 
 // #start-region renderPokemon on Website and Dialog (pokemon-card)
 
@@ -53,7 +55,7 @@ async function fetchDataJsonPokeApi() {
 
 async function fetchDataJsonPokemonDetails() {
   try {
-    let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=30");
+    let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
     let responseAsJson = await response.json();
     let pokemonData = [];
 
@@ -91,6 +93,7 @@ async function fetchDataJsonPokemonDetails() {
 
 // #end-region fetch data from API
 
+
 // #start-region open and close dialog (Pokémon-Card)
 
 function openPokemonCardDialog(index) {
@@ -108,3 +111,8 @@ function closePokemonCardDialog() {
 }
 
 // #end-region open and close dialog (Pokémon-Card)
+
+
+// #start-region load more Pokémon
+
+
