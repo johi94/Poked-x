@@ -9,21 +9,25 @@
 .search_btn {
   width: 100px;
   border-radius: 15px;
+  background: whitesmoke;
 }
 
 .search_btn:hover {
   cursor: pointer;
+  background: antiquewhite;
 }
 
 /* add drop-shadow to button*/
 
 .search_input {
+  background: whitesmoke;
   border-radius: 15px;
   text-align: center;
 }
 
 .search_input:hover {
   cursor: pointer;
+  background: white;
 }
 
 .load_pokemon_section {

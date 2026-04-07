@@ -46,39 +46,41 @@ function getPokemonCardTemplate(pokemon, index) {
   return /*html*/ `
    <div class="pokemon_card_open">
     <p class="pokedex_number_open"># ${String(index + 1).padStart(4, '0')}</p>
-
-    <div class="pokemon_img_type_open">
-     <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img_open" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
-      <div class="name_type_open">
-       <h2 class="h2_open">${pokemon.name.toUpperCase()}</h2>
-        <div class="types_open"> 
-         <p class="p_tag_type_open">Type:</p>
-          ${pokemon.types.map(t => {
-          const bgColor = typeColors[t.type.name];
-          return `<span class="type-badge-open" style="background-color: ${bgColor}">${t.type.name}</span>`;
-          }).join(' ')}
-        </div>
-      </div>
+     <div class="pokemon_img_type_open">
+      <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img_open" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
+       <div class="name_type_open">
+        <h2 class="h2_open">${pokemon.name.toUpperCase()}</h2>
+         <div class="types_open"> 
+          <p class="p_tag_type_open">Type:</p>
+           ${pokemon.types.map(t => {
+           const bgColor = typeColors[t.type.name];
+           return `<span class="type-badge-open" style="background-color: ${bgColor}">${t.type.name}</span>`;
+           }).join(' ')}
+         </div>
+       </div>
      </div>
-            <p class="flavor_text">"${pokemon.description_text}"</p>
-             <div class="statistics_open" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
-              <p>Base Stats:</p>
-            <div class="statistics_divide">
-               <div class="statistics_1">
-                <p>height: ${(pokemon.height / 10).toFixed(1).replace(".", ",")} m</p>
-                <p>HP: ${pokemon.stats[0].base_stat}</p>
-                <p>attack: ${pokemon.stats[1].base_stat}</p>
-                <p>defense: ${pokemon.stats[2].base_stat}</p>
-               </div>
-               <div class="statistics_2">
-                <p>weight: ${(pokemon.weight / 10).toFixed(1).replace(".", ",")} kg</p>
-                <p>special attack: ${pokemon.stats[3].base_stat}</p>
-                <p>special defense: ${pokemon.stats[4].base_stat}</p>
-                <p>speed: ${pokemon.stats[5].base_stat}</p> 
-              </div>
-            </div>
-          </div>
-               
-      </div>
+    <p class="flavor_text">"${pokemon.description_text}"</p>
+     <div class="statistics_open" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
+      <p>Base Stats:</p>
+       <div class="statistics_divide">
+        <div class="statistics_1">
+         <p>height: ${(pokemon.height / 10).toFixed(2).replace(".", ",")} m</p>
+         <p>HP: ${pokemon.stats[0].base_stat}</p>
+         <p>attack: ${pokemon.stats[1].base_stat}</p>
+         <p>special attack: ${pokemon.stats[3].base_stat}</p>
+        </div>
+        <div class="statistics_2">
+         <p>weight: ${(pokemon.weight / 10).toFixed(2).replace(".", ",")} kg</p>
+         <p>speed: ${pokemon.stats[5].base_stat}</p> 
+         <p>defense: ${pokemon.stats[2].base_stat}</p>
+         <p>special defense: ${pokemon.stats[4].base_stat}</p>
+        </div>
+       </div>
+     </div>  
+      <div class="nav_btns">
+         <button class="nav_btn_left" onclick="">&#9664;</button>
+         <button class="nav_btn_right" onclick="">&#9654;</button>
+      </div>  
+   </div>
       `;
 }

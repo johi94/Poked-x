@@ -1,6 +1,6 @@
 #open_pokemon_card {
   background: rgb(25, 25, 25);
-  height: 800px;
+  height: 780px;
   width: 800px;
   border: 2px solid antiquewhite;
   border-radius: 25px;
@@ -12,7 +12,9 @@
   padding: 0;
 }
 
-/* Höhe Breite ggf. nochmal ändern, border color neu oder nicht? */
+.pokemon_card_open {
+  height: 760px;      /* dialog's not closing by clicking on the bottom of it */
+}
 
 #open_pokemon_card::backdrop {
   background: rgba(0, 0, 0, 0.5);
@@ -41,6 +43,12 @@
   padding-bottom: 4px;
 }
 
+.close_pokemon_card_btn:hover {
+  cursor: pointer;
+  background: white;
+}
+
+
 .pokedex_number_open {
   color: rgb(150, 150, 150);
   padding-top: 24px;
@@ -61,6 +69,7 @@
 
 .h2_open {
   padding-bottom: 24px;
+  margin-right: 24px;
 }
 
 .name_type_open {
@@ -101,7 +110,7 @@
 }
 
 .statistics_open {
-  color: antiquewhite;
+  color: black;
   padding-left: 16px;
   width: 600px;
   margin-left: 100px;
@@ -109,6 +118,47 @@
   margin-bottom: 24px;
   padding: 16px;
   border-radius: 12px;
+}
+
+.nav_btns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+}
+
+.nav_btn_left {
+  background: antiquewhite;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  color: black;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 5px;
+}
+
+.nav_btn_right {
+  background: antiquewhite;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  color: black;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5px;
+}
+
+.nav_btn_left:hover {
+  cursor: pointer;
+  background: white;
+}
+
+.nav_btn_right:hover {
+  cursor: pointer;
+  background: white;
 }
 
 /*  */

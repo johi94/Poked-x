@@ -58,6 +58,10 @@ main {
   border-radius: 12%;
 }
 
+.pokemon_card:hover {
+  cursor: pointer;
+}
+
 .number_name_types {
   display: flex;
   flex-direction: column;
@@ -70,6 +74,12 @@ main {
   width: 250px;
   border-radius: 12%;
   object-fit: contain;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pokemon_img:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0px 12px 20px rgba(0, 0, 0, 0.4));
 }
 
 .pokedex_number {
@@ -87,7 +97,7 @@ h2 {
   text-align: center;
   color: black;
   border-radius: 5%;
-} 
+}
 
 .copyright_footer {
   color: antiquewhite;

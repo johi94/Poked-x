@@ -51,7 +51,6 @@ h2 {
   font-weight: 400;
 }
 
-
 .type-badge {
   font-size: 20px;
 }
@@ -59,6 +58,12 @@ h2 {
 .type-badge-open {
   font-size: 25px;
 }
+
+.nav_btn_left, .nav_btn_right {
+  font-size: 30px;
+}
+
+ 
 
 .copyright_footer {
   font-size: 40px;
