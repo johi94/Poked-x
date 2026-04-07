@@ -37,13 +37,11 @@ async function fetchDataJsonPokeApi() {
       "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0",
     );
     let responseAsJson = await response.json();
-
     let pokemonArray = responseAsJson.results;
     let myContent = "";
 
     for (let i = 0; i < pokemonArray.length; i++) {
       let pokemon = pokemonArray[i];
-
       myContent += getPokemonTemplate(pokemon, i);
     }
 
@@ -63,6 +61,7 @@ async function fetchDataJsonPokemonDetails() {
       let pokemonDescriptions = responseAsJson.results[i];
       let responseDetails = await fetch(pokemonDescriptions.url);
       let dataDetails = await responseDetails.json();
+      dataDetails.description_text = await getPokemonDescription(dataDetails);
       pokemonData.push(dataDetails);
     }
 
@@ -91,6 +90,26 @@ async function fetchDataJsonPokemonDetails() {
   }
 }
 
+
+async function getPokemonDescription(pokemon) {
+  try {
+    const response = await fetch(pokemon.species.url);
+    const data = await response.json();
+
+    const entry = data.flavor_text_entries.find(
+      (e) => e.language.name === "en",
+    );
+
+    // replace linebreaks
+    return entry
+      ? entry.flavor_text.replace(/[\f\n\r]/gm, " ")
+      : "No description available.";
+  } catch (error) {
+    console.error("Error fetching description:", error);
+    return "Description could not be loaded.";
+  }
+}
+
 // #end-region fetch data from API
 
 
@@ -114,5 +133,3 @@ function closePokemonCardDialog() {
 
 
 // #start-region load more Pokémon
-
-

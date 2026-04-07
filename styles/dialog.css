@@ -1,7 +1,7 @@
 #open_pokemon_card {
   background: rgb(25, 25, 25);
   height: 800px;
-  width: 450px;
+  width: 800px;
   border: 2px solid antiquewhite;
   border-radius: 25px;
   position: fixed;
@@ -43,11 +43,27 @@
 
 .pokemon_img_open {
   width: 400px;
-  height: 400px
+  height: 400px;
+  margin-left: 24px;
+}
+
+.h2_open {
+  padding-left: 24px;
 }
 
 .pokedex_number_open {
   color: rgb(150, 150, 150);
+  padding-top: 24px;
+  padding-left: 24px;
+}
+
+.flavor_text {
+  color: antiquewhite;
+}
+
+.statistics_open {
+  color: antiquewhite;
+  padding-left: 16px;
 }
 
 .height_weight_open {
