@@ -41,64 +41,65 @@ async function fetchDataJsonPokeApi() {
     let responseAsJson = await response.json();
     let pokemonArray = responseAsJson.results;
     let myContent = "";
-
     for (let i = 0; i < pokemonArray.length; i++) {
       let pokemon = pokemonArray[i];
       myContent += getPokemonTemplate(pokemon, i);
     }
-
     document.getElementById("content").innerHTML = myContent;
   } catch (error) {
     console.error("Anzeigefehler:", error);
   }
 }
 
+
 async function fetchDataJsonPokemonDetails() {
   try {
-    let response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`,
-    );
+    let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`);
     let responseAsJson = await response.json();
-
     totalPokemonCount = responseAsJson.count;
 
-    let pokemonData = [];
-
-    for (let i = 0; i < responseAsJson.results.length; i++) {
-      let pokemonDescriptions = responseAsJson.results[i];
-      let responseDetails = await fetch(pokemonDescriptions.url);
-      let dataDetails = await responseDetails.json();
-      dataDetails.description_text = await getPokemonDescription(dataDetails);
-      pokemonData.push(dataDetails);
-    }
-
-    console.log("Details aller Pokémon:", pokemonData);
-
-    currentPokemonList = pokemonData;
+    currentPokemonList = await fetchPokemonData(responseAsJson.results);
 
     currentOffset = 20;
     limit = 10;
 
-    pokemonCardRef = document.getElementById("open_pokemon_card");
+    DialogEventListeners();
 
-    if (pokemonCardRef) {
-      pokemonCardRef.addEventListener("cancel", closePokemonCardDialog); // close dialog with ESC
-
-      pokemonCardRef.addEventListener("click", (e) => {
-        // close dialog by clicking outside of dialog
-        if (e.target === pokemonCardRef) {
-          // don't close dialog by clicking inside of Dialog or Element inside of dialog
-
-          closePokemonCardDialog();
-        }
-      });
-    }
     document.getElementById("load_more_pokemon").onclick = loadMorePokemon;
     renderPokemon(currentPokemonList);
   } catch (error) {
-    console.error("Fehler:", error);
+    console.error("Fehler beim Laden:", error);
   }
 }
+
+
+async function fetchPokemonData(resultsArray) {
+  let pokemonData = [];
+  for (let i = 0; i < resultsArray.length; i++) {
+    let responseDetails = await fetch(resultsArray[i].url);
+    let dataDetails = await responseDetails.json();
+    
+    dataDetails.description_text = await getPokemonDescription(dataDetails);
+    
+    pokemonData.push(dataDetails);
+  }
+  return pokemonData;
+}
+
+
+function DialogEventListeners() {
+  pokemonCardRef = document.getElementById("open_pokemon_card");
+  if (!pokemonCardRef) return;
+
+  pokemonCardRef.addEventListener("cancel", closePokemonCardDialog); // close dialog with ESC
+
+  pokemonCardRef.onclick = (e) => {      // close by clicking outside of dialog and check if click is not inside
+    if (e.target === pokemonCardRef) {
+      closePokemonCardDialog();
+    }
+  };
+}
+// 
 
 async function getPokemonDescription(pokemon) {
   try {
@@ -121,6 +122,7 @@ async function getPokemonDescription(pokemon) {
 
 // #end-region fetch data from API
 
+
 // #start-region open and close dialog (Pokémon-Card)
 
 function openPokemonCardDialog(index) {
@@ -138,6 +140,7 @@ function closePokemonCardDialog() {
 }
 
 // #end-region open and close dialog (Pokémon-Card)
+
 
 // #start-region load more Pokémon
 
@@ -176,6 +179,7 @@ async function loadMorePokemon() {
   }
 }
 
+
 function renderNewPokemon(newArray) {
   let content = document.getElementById("content");
   let startIndex = currentPokemonList.length - newArray.length;
@@ -185,15 +189,18 @@ function renderNewPokemon(newArray) {
   }
 }
 
+
 function showSpinner() {
   document.getElementById("loading_spinner").style.display = "flex";
   document.getElementById("load_more_pokemon").style.display = "none"; // hide button
 }
 
+
 function hideSpinner() {
   document.getElementById("loading_spinner").style.display = "none";
   document.getElementById("load_more_pokemon").style.display = "block"; // show button again
 }
+
 
 async function changePokemonCard(newIndex) {
   console.log("Wechsle zu Pokémon Nr.:", newIndex + 1);
@@ -212,6 +219,7 @@ async function changePokemonCard(newIndex) {
     await loadAndShowSinglePokemon(newIndex + 1);
   }
 }
+
 
 async function loadAndShowSinglePokemon(pokemonId) {
   showSpinner();

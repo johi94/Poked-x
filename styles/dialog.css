@@ -55,10 +55,22 @@
   padding-left: 24px;
 }
 
-.pokemon_img_open {
-  width: 225px;
-  height: 225px;
+.pokemon_img_circle_container {
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.pokemon_img_open {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 30px;
+  box-sizing: border-box;
 }
 
 .pokemon_img_type_open {
@@ -116,6 +128,10 @@
   /* margin-bottom: 24px; */
   padding: 16px;
   border-radius: 12px;
+}
+
+.base_stats {
+  color: antiquewhite;
 }
 
 .nav_btns_statistics{

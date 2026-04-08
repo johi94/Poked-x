@@ -46,7 +46,12 @@ h2 {
   font-weight: 300;
 }
 
-.statistics_open {
+.base_stats {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.statistics_1, .statistics_2 {
   font-size: 25px;
   font-weight: 400;
 }

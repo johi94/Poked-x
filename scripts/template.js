@@ -47,7 +47,9 @@ function getPokemonCardTemplate(pokemon, index) {
    <div class="pokemon_card_open">
     <p class="pokedex_number_open"># ${String(index + 1).padStart(4, '0')}</p>
      <div class="pokemon_img_type_open">
-      <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img_open" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
+      <div class="pokemon_img_circle_container" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
+       <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img_open">
+      </div>
        <div class="name_type_open">
         <h2 class="h2_open">${pokemon.name.toUpperCase()}</h2>
          <div class="types_open"> 
@@ -63,7 +65,7 @@ function getPokemonCardTemplate(pokemon, index) {
      <div class="nav_btns_statistics">
       <button class="nav_btn_left" onclick="changePokemonCard(${index - 1})">&#9664;</button>
        <div class="statistics_open" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
-        <p>Base Stats:</p>
+        <p class="base_stats">Base Stats:</p>
          <div class="statistics_divide">
           <div class="statistics_1">
            <p>height: ${(pokemon.height / 10).toFixed(2).replace(".", ",")} m</p>
