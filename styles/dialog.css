@@ -1,6 +1,6 @@
 #open_pokemon_card {
   background: rgb(25, 25, 25);
-  height: 780px;
+  height: 725px;
   width: 800px;
   border: 2px solid antiquewhite;
   border-radius: 25px;
@@ -13,7 +13,7 @@
 }
 
 .pokemon_card_open {
-  height: 760px;      /* dialog's not closing by clicking on the bottom of it */
+  height: 700px;      /* dialog's not closing by clicking on the bottom of it */
 }
 
 #open_pokemon_card::backdrop {
@@ -112,20 +112,19 @@
 .statistics_open {
   color: black;
   padding-left: 16px;
-  width: 600px;
-  margin-left: 100px;
-  margin-right: 100px;
-  margin-bottom: 24px;
+  flex: 1;
+  /* margin-bottom: 24px; */
   padding: 16px;
   border-radius: 12px;
 }
 
-.nav_btns {
+.nav_btns_statistics{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-
-}
+  margin-left: 24px;
+  margin-right: 24px;
+} 
 
 .nav_btn_left {
   background: antiquewhite;
@@ -137,6 +136,7 @@
   justify-content: center;
   align-items: center;
   padding-right: 5px;
+  margin-right: 16px;
 }
 
 .nav_btn_right {
@@ -149,6 +149,7 @@
   justify-content: center;
   align-items: center;
   padding-left: 5px;
+  margin-left: 16px;
 }
 
 .nav_btn_left:hover {

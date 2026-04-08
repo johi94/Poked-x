@@ -60,27 +60,27 @@ function getPokemonCardTemplate(pokemon, index) {
        </div>
      </div>
     <p class="flavor_text">"${pokemon.description_text}"</p>
-     <div class="statistics_open" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
-      <p>Base Stats:</p>
-       <div class="statistics_divide">
-        <div class="statistics_1">
-         <p>height: ${(pokemon.height / 10).toFixed(2).replace(".", ",")} m</p>
-         <p>HP: ${pokemon.stats[0].base_stat}</p>
-         <p>attack: ${pokemon.stats[1].base_stat}</p>
-         <p>special attack: ${pokemon.stats[3].base_stat}</p>
-        </div>
-        <div class="statistics_2">
-         <p>weight: ${(pokemon.weight / 10).toFixed(2).replace(".", ",")} kg</p>
-         <p>speed: ${pokemon.stats[5].base_stat}</p> 
-         <p>defense: ${pokemon.stats[2].base_stat}</p>
-         <p>special defense: ${pokemon.stats[4].base_stat}</p>
-        </div>
-       </div>
-     </div>  
-      <div class="nav_btns">
-         <button class="nav_btn_left" onclick="">&#9664;</button>
-         <button class="nav_btn_right" onclick="">&#9654;</button>
-      </div>  
+     <div class="nav_btns_statistics">
+      <button class="nav_btn_left" onclick="changePokemonCard(${index - 1})">&#9664;</button>
+       <div class="statistics_open" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
+        <p>Base Stats:</p>
+         <div class="statistics_divide">
+          <div class="statistics_1">
+           <p>height: ${(pokemon.height / 10).toFixed(2).replace(".", ",")} m</p>
+           <p>HP: ${pokemon.stats[0].base_stat}</p>
+           <p>attack: ${pokemon.stats[1].base_stat}</p>
+           <p>special attack: ${pokemon.stats[3].base_stat}</p>
+          </div>
+          <div class="statistics_2">
+           <p>weight: ${(pokemon.weight / 10).toFixed(2).replace(".", ",")} kg</p>
+           <p>speed: ${pokemon.stats[5].base_stat}</p> 
+           <p>defense: ${pokemon.stats[2].base_stat}</p>
+           <p>special defense: ${pokemon.stats[4].base_stat}</p>
+          </div>
+       </div>  
+     </div> 
+     <button class="nav_btn_right" onclick="changePokemonCard(${index + 1})">&#9654;</button>   
+    </div>  
    </div>
       `;
 }
