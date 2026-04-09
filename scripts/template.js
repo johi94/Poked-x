@@ -9,6 +9,7 @@
 
 function getPokemonTemplate(pokemon, index) {
 
+ const realId = String(pokemon.id).padStart(4, '0');
  const type1 = pokemon.types[0].type.name;
  const type2 = pokemon.types[1] ? pokemon.types[1].type.name : type1;
  const color1 = typeColors[type1];
@@ -18,7 +19,7 @@ function getPokemonTemplate(pokemon, index) {
       <div class="pokemon_card" onclick="openPokemonCardDialog(${index})">
        <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)"> 
         <div class="number_name_types">
-         <p class="pokedex_number">Nr. ${String(index + 1).padStart(4, '0')}</p>
+         <p class="pokedex_number">Nr. ${realId}</p>
          <h2>${pokemon.name.toUpperCase()}</h2>
           <div>
            ${pokemon.types.map(t => {
@@ -38,6 +39,7 @@ function getPokemonTemplate(pokemon, index) {
 
 function getPokemonCardTemplate(pokemon, index) {
 
+ const realId = String(pokemon.id).padStart(4, '0');
  const type1 = pokemon.types[0].type.name;
  const type2 = pokemon.types[1] ? pokemon.types[1].type.name : type1;
  const color1 = typeColors[type1];
@@ -45,7 +47,7 @@ function getPokemonCardTemplate(pokemon, index) {
 
   return /*html*/ `
    <div class="pokemon_card_open">
-    <p class="pokedex_number_open"># ${String(index + 1).padStart(4, '0')}</p>
+    <p class="pokedex_number_open"># ${realId}</p>
      <div class="pokemon_img_type_open">
       <div class="pokemon_img_circle_container" style="background: linear-gradient(135deg, ${color1} 50%, ${color2} 50%)">
        <img src="${pokemon.sprites.other['official-artwork'].front_default}" alt="${pokemon.name}" class="pokemon_img_open">
