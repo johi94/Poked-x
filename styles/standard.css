@@ -9,3 +9,8 @@
   color: inherit;
   font-size: inherit;
 }
+
+/* no jumping after closing the dialog */
+html {
+  scrollbar-gutter: stable;
+}

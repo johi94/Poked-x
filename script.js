@@ -11,10 +11,8 @@ let allPokemonNamesCache = null; // used for caching / safe Pokémon names
 function renderPokemon(pokemonArray) {
   let content = document.getElementById("content");
   content.innerHTML = "";
-
   for (let i = 0; i < pokemonArray.length; i++) {
     let pokemon = pokemonArray[i];
-
     content.innerHTML += getPokemonTemplate(pokemon, i);
   }
 }
@@ -22,9 +20,7 @@ function renderPokemon(pokemonArray) {
 function renderPokemonCard(index) {
   let pokemonCardContent = document.getElementById("pokemon_card_content");
   pokemonCardContent.innerHTML = "";
-
   let pokemon = currentPokemonList[index];
-
   if (pokemon) {
     pokemonCardContent.innerHTML = getPokemonCardTemplate(pokemon, index);
   }
@@ -54,28 +50,37 @@ async function fetchDataJsonPokeApi() {
 
 async function fetchDataJsonPokemonDetails() {
   try {
-    let response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`,
-    );
+    let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`);
     let responseAsJson = await response.json();
 
     totalPokemonCount = responseAsJson.count;
-
     currentPokemonList = await fetchPokemonData(responseAsJson.results);
-
-    currentOffset = 20;
-    limit = 20;
-
-    DialogEventListeners();
-    searchEventListener();
-
-    const loadMoreBtn = document.getElementById("load_more_pokemon");
-    loadMoreBtn.innerText = "Load more Pokémon";
-    loadMoreBtn.onclick = loadMorePokemon;
+    
+    resetPaginationValues();
+    initializeListeners();
+    setupLoadMoreButton();
 
     renderPokemon(currentPokemonList);
   } catch (error) {
     console.error("Fehler beim Laden:", error);
+  }
+}
+
+function resetPaginationValues() {
+  currentOffset = 20;
+  limit = 20;
+}
+
+function initializeListeners() {
+  DialogEventListeners();
+  searchEventListener();
+}
+
+function setupLoadMoreButton() {
+  const loadMoreBtn = document.getElementById("load_more_pokemon");
+  if (loadMoreBtn) {
+    loadMoreBtn.innerText = "Load more Pokémon";
+    loadMoreBtn.onclick = loadMorePokemon;
   }
 }
 
@@ -133,18 +138,8 @@ async function getPokemonDescription(pokemon) {
 
 async function openPokemonCardDialog(index) {
   let pokemon = currentPokemonList[index];
-  if (!pokemon.isFullDataLoaded) {
-    showSpinner(); 
-    try {
-      pokemon.description_text = await getPokemonDescription(pokemon);
-      pokemon.isFullDataLoaded = true;
-    } catch (error) {
-      console.error("Fehler beim Lazy Loading:", error);
-      pokemon.description_text = "No description available.";
-    } finally {
-      hideSpinner();
-    }
-  }
+
+  await ensurePokemonDetailsLoaded(pokemon);
 
   renderPokemonCard(index);
   pokemonCardRef.showModal();
@@ -152,9 +147,24 @@ async function openPokemonCardDialog(index) {
   document.body.style.overflow = "hidden";
 }
 
+async function ensurePokemonDetailsLoaded(pokemon) {
+  if (pokemon.isFullDataLoaded) return;
+
+  showSpinner();
+  try {
+    pokemon.description_text = await getPokemonDescription(pokemon);
+    pokemon.isFullDataLoaded = true;
+  } catch (error) {
+    console.error("Fehler beim Lazy Loading:", error);
+    pokemon.description_text = "No description available.";
+  } finally {
+    hideSpinner();
+  }
+}
+
 function closePokemonCardDialog() {
     pokemonCardRef.close();
-   pokemonCardRef.classList.remove("opened");
+    pokemonCardRef.classList.remove("opened");
     document.body.style.overflow = "visible"; // show scrollbar from body again after dialog is closed
   }
 
@@ -162,18 +172,34 @@ function closePokemonCardDialog() {
 
 // #start-region load more Pokémon
 
+// async function loadMorePokemon() {
+//   if (isLoading) return;
+//   isLoading = true;
+//   showSpinner();
+//   try {
+//     let response = await fetch(
+//       `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`,
+//     );
+//     let responseAsJson = await response.json();
+//     let newPokemonData = await fetchPokemonData(responseAsJson.results);
+//     currentPokemonList = currentPokemonList.concat(newPokemonData);
+//     currentOffset += responseAsJson.results.length;
+//     renderNewPokemon(newPokemonData);
+//   } catch (error) {
+//     console.error("Fehler beim Nachladen:", error);
+//   } finally {
+//     isLoading = false;
+//     hideSpinner();
+//   }
+// }
+
 async function loadMorePokemon() {
   if (isLoading) return;
   isLoading = true;
   showSpinner();
+
   try {
-    let response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`,
-    );
-    let responseAsJson = await response.json();
-    let newPokemonData = await fetchPokemonData(responseAsJson.results);
-    currentPokemonList = currentPokemonList.concat(newPokemonData);
-    currentOffset += responseAsJson.results.length;
+    const newPokemonData = await fetchAndProcessNextBatch();
     renderNewPokemon(newPokemonData);
   } catch (error) {
     console.error("Fehler beim Nachladen:", error);
@@ -181,6 +207,17 @@ async function loadMorePokemon() {
     isLoading = false;
     hideSpinner();
   }
+}
+
+async function fetchAndProcessNextBatch() {
+  let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`);
+  let responseAsJson = await response.json();
+  let newPokemonData = await fetchPokemonData(responseAsJson.results);
+
+  currentPokemonList = currentPokemonList.concat(newPokemonData);
+  currentOffset += responseAsJson.results.length;
+
+  return newPokemonData;
 }
 
 function renderNewPokemon(newArray) {
