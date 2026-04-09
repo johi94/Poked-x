@@ -4,7 +4,8 @@ let currentOffset = 0;
 let limit = 20;
 let isLoading = false;
 let totalPokemonCount = 0;
-
+let allPokemonNamesCache = null; // used for caching / safe Pokémon names
+ 
 // #start-region renderPokemon on Website and Dialog (pokemon-card)
 
 function renderPokemon(pokemonArray) {
@@ -63,7 +64,7 @@ async function fetchDataJsonPokemonDetails() {
     currentPokemonList = await fetchPokemonData(responseAsJson.results);
 
     currentOffset = 20;
-    limit = 10;
+    limit = 20;
 
     DialogEventListeners();
     searchEventListener();
@@ -78,30 +79,29 @@ async function fetchDataJsonPokemonDetails() {
   }
 }
 
+// function for parallel fetching 
+// without for-loop -> no waiting time Pokémons are not loading one after another
 async function fetchPokemonData(resultsArray) {
-  let pokemonData = [];
-  for (let i = 0; i < resultsArray.length; i++) {
-    let responseDetails = await fetch(resultsArray[i].url);
-    let dataDetails = await responseDetails.json();
-
-if (dataDetails.id >= 10000) {
+  const promises = resultsArray.map(async (item) => {
+    const response = await fetch(item.url);
+    const dataDetails = await response.json();
+    if (dataDetails.id >= 10000) {
       const parts = dataDetails.species.url.split('/');
-      dataDetails.id = parts[parts.length - 2]; 
+      dataDetails.id = parts[parts.length - 2];
     }
+    dataDetails.description_text = ""; 
+    dataDetails.isFullDataLoaded = false; 
+    return dataDetails;
+  });
 
-    dataDetails.description_text = await getPokemonDescription(dataDetails);
-
-    pokemonData.push(dataDetails);
-  }
-  return pokemonData;
+  // (Fetch-All-then-Render)
+  return await Promise.all(promises);
 }
 
 function DialogEventListeners() {
   pokemonCardRef = document.getElementById("open_pokemon_card");
   if (!pokemonCardRef) return;
-
   pokemonCardRef.addEventListener("cancel", closePokemonCardDialog); // close dialog with ESC
-
   pokemonCardRef.onclick = (e) => {
     // close by clicking outside of dialog and check if click is not inside
     if (e.target === pokemonCardRef) {
@@ -114,11 +114,9 @@ async function getPokemonDescription(pokemon) {
   try {
     const response = await fetch(pokemon.species.url);
     const data = await response.json();
-
     const entry = data.flavor_text_entries.find(
       (e) => e.language.name === "en",
     );
-
     // replace linebreaks
     return entry
       ? entry.flavor_text.replace(/[\f\n\r]/gm, " ")
@@ -133,19 +131,32 @@ async function getPokemonDescription(pokemon) {
 
 // #start-region open and close dialog (Pokémon-Card)
 
-function openPokemonCardDialog(index) {
-  renderPokemonCard(index);
+async function openPokemonCardDialog(index) {
+  let pokemon = currentPokemonList[index];
+  if (!pokemon.isFullDataLoaded) {
+    showSpinner(); 
+    try {
+      pokemon.description_text = await getPokemonDescription(pokemon);
+      pokemon.isFullDataLoaded = true;
+    } catch (error) {
+      console.error("Fehler beim Lazy Loading:", error);
+      pokemon.description_text = "No description available.";
+    } finally {
+      hideSpinner();
+    }
+  }
 
+  renderPokemonCard(index);
   pokemonCardRef.showModal();
   pokemonCardRef.classList.add("opened");
-  document.body.style.overflow = "hidden"; // hide scrollbar from body while dialog opened
+  document.body.style.overflow = "hidden";
 }
 
 function closePokemonCardDialog() {
-  pokemonCardRef.close();
-  pokemonCardRef.classList.remove("opened");
-  document.body.style.overflow = "visible"; // show scrollbar from body again after dialog is closed
-}
+    pokemonCardRef.close();
+   pokemonCardRef.classList.remove("opened");
+    document.body.style.overflow = "visible"; // show scrollbar from body again after dialog is closed
+  }
 
 // #end-region open and close dialog (Pokémon-Card)
 
@@ -155,17 +166,14 @@ async function loadMorePokemon() {
   if (isLoading) return;
   isLoading = true;
   showSpinner();
-
   try {
     let response = await fetch(
       `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`,
     );
     let responseAsJson = await response.json();
     let newPokemonData = await fetchPokemonData(responseAsJson.results);
-
     currentPokemonList = currentPokemonList.concat(newPokemonData);
     currentOffset += responseAsJson.results.length;
-
     renderNewPokemon(newPokemonData);
   } catch (error) {
     console.error("Fehler beim Nachladen:", error);
@@ -195,8 +203,6 @@ function hideSpinner() {
 }
 
 async function changePokemonCard(newIndex) {
-  console.log("Wechsle zu Pokémon Nr.:", newIndex + 1);
-
   if (newIndex < 0) {
     await loadAndShowSinglePokemon(1025);
     return;
@@ -205,8 +211,8 @@ async function changePokemonCard(newIndex) {
     renderPokemonCard(0);
     return;
   }
-  if (newIndex < currentPokemonList.length) {
-    renderPokemonCard(newIndex);
+  if (newIndex < currentPokemonList.length) { 
+    await openPokemonCardDialog(newIndex); 
   } else {
     await loadAndShowSinglePokemon(newIndex + 1);
   }
@@ -283,18 +289,27 @@ async function executeSearch(searchTerm, messageContainer) {
   }
 }
 
-// function get names of Pokémon and filter them by their first letters
+// function get names of Pokémon and filter them by their first letters / local cache for names
 async function getFilteredPokemonList(searchTerm) {
-    let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0");
-    let data = await response.json();
-    return data.results.filter(p => p.name.startsWith(searchTerm));
+    // proof: list loaded before?
+    if (!allPokemonNamesCache) {
+        console.log("Lade Gesamtliste von API..."); // Nur beim ersten Mal
+        let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0");
+        let data = await response.json();
+        // safe in Cache
+        allPokemonNamesCache = data.results;
+    } else {
+        console.log("Nutze Cache die Suche"); 
+    }
+    // filter in local list 
+    return allPokemonNamesCache.filter(p => p.name.toLowerCase().includes(searchTerm));
 }
 
-// function for changing "Load more Pokémon" into "Get back to Pokédex"
+// function for changing "Load more Pokémon" into "Go back to Pokédex"
 function toggleSearchButton(isSearchMode) {
     const loadMoreBtn = document.getElementById("load_more_pokemon");
     if (isSearchMode) {
-        loadMoreBtn.innerText = "Get back to Pokédex";
+        loadMoreBtn.innerText = "Go back to Pokédex";
         loadMoreBtn.onclick = resetPokedex;
         loadMoreBtn.style.display = "block";
     } else {

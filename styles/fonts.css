@@ -42,7 +42,7 @@ h2 {
 }
 
 .flavor_text {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
 }
 
@@ -67,8 +67,6 @@ h2 {
 .nav_btn_left, .nav_btn_right {
   font-size: 30px;
 }
-
- 
 
 .copyright_footer {
   font-size: 40px;
