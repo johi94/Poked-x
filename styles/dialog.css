@@ -87,6 +87,7 @@
 .name_type_open {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
   color: antiquewhite;
 }
@@ -114,6 +115,11 @@
   color: antiquewhite;
   margin: 24px;
   text-align: center;
+  height: 80px;           
+  display: flex;           
+  align-items: center;     
+  justify-content: center; 
+  overflow-y: auto;
 }
 
 .statistics_divide {

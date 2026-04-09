@@ -5,6 +5,7 @@ let limit = 20;
 let isLoading = false;
 let totalPokemonCount = 0;
 let allPokemonNamesCache = null; // used for caching / safe Pokémon names
+let isSearchActive = false;
  
 // #start-region renderPokemon on Website and Dialog (pokemon-card)
 
@@ -172,27 +173,6 @@ function closePokemonCardDialog() {
 
 // #start-region load more Pokémon
 
-// async function loadMorePokemon() {
-//   if (isLoading) return;
-//   isLoading = true;
-//   showSpinner();
-//   try {
-//     let response = await fetch(
-//       `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`,
-//     );
-//     let responseAsJson = await response.json();
-//     let newPokemonData = await fetchPokemonData(responseAsJson.results);
-//     currentPokemonList = currentPokemonList.concat(newPokemonData);
-//     currentOffset += responseAsJson.results.length;
-//     renderNewPokemon(newPokemonData);
-//   } catch (error) {
-//     console.error("Fehler beim Nachladen:", error);
-//   } finally {
-//     isLoading = false;
-//     hideSpinner();
-//   }
-// }
-
 async function loadMorePokemon() {
   if (isLoading) return;
   isLoading = true;
@@ -240,16 +220,18 @@ function hideSpinner() {
 }
 
 async function changePokemonCard(newIndex) {
+  const listLength = currentPokemonList.length;
+  if (isSearchActive) {
+    let nextIndex = (newIndex < 0) ? listLength - 1 : (newIndex >= listLength) ? 0 : newIndex;
+    await openPokemonCardDialog(nextIndex);
+    return; 
+  }
   if (newIndex < 0) {
     await loadAndShowSinglePokemon(1025);
-    return;
-  }
-  if (newIndex >= 1025) {
+  } else if (newIndex >= 1025) {
     renderPokemonCard(0);
-    return;
-  }
-  if (newIndex < currentPokemonList.length) { 
-    await openPokemonCardDialog(newIndex); 
+  } else if (newIndex < listLength) {
+    await openPokemonCardDialog(newIndex);
   } else {
     await loadAndShowSinglePokemon(newIndex + 1);
   }
@@ -319,7 +301,9 @@ async function executeSearch(searchTerm, messageContainer) {
   const foundPokemon = await getFilteredPokemonList(searchTerm);
   if (foundPokemon.length === 0) {
     messageContainer.innerText = "No Pokémon found with these letters.";
+    isSearchActive = false; // Keine Treffer, Suche nicht aktiv im Sinne der Navigation
   } else {
+    isSearchActive = true; // Suche ist aktiv!
     currentPokemonList = await fetchPokemonData(foundPokemon.slice(0, 20));
     toggleSearchButton(true);
     renderPokemon(currentPokemonList);
@@ -375,13 +359,13 @@ function searchEventListener() {
 }
 
 function resetPokedex() {
+    isSearchActive = false;
     window.scrollTo({ top: 0, behavior: "smooth" });
     currentOffset = 0;
     limit = 20;
     currentPokemonList = [];
     document.getElementById("search_input").value = "";
     document.getElementById("search_message").innerText = "";
-    
     toggleSearchButton(false); 
     fetchDataJsonPokemonDetails();
 }

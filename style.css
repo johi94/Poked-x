@@ -65,7 +65,7 @@ main {
 .number_name_types {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 }
 
@@ -89,6 +89,7 @@ main {
 
 h2 {
   padding-bottom: 16px;
+  text-align: center;
 }
 
 .type-badge {
