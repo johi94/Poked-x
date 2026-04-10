@@ -55,7 +55,7 @@ main {
   flex-direction: column;
   height: 500px;
   width: 350px;
-  border-radius: 12%;
+  border-radius: 25px;
 }
 
 .pokemon_card:hover {
@@ -113,4 +113,68 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.mobile-break {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .pokeball_img {
+    height: 130px;
+  }
+  header {
+    height: 15dvh;
+  }
+  footer {
+    height: 15dvh;
+  }
+}
+
+@media (max-width: 800px) {
+   header {
+    height: 26dvh;
+  }
+  .logo_title_container {
+    margin-left: 0;
+  }
+  .content-width {
+    flex-direction: column;
+    align-items: center;
+  }
+   .pokeball_img {
+    height: 150px;
+  }
+  footer {
+    height: 12dvh;
+  }
+}
+
+@media (max-width: 600px) {
+   header {
+    height: 23dvh;
+  }
+  .pokeball_img {
+    height: 130px;
+  }
+}
+
+@media (max-width: 500px) {
+  .mobile-break {
+    display: block;
+  }
+
+  .copyright_footer {
+    text-align: center; 
+    padding: 0 16px;    
+  }
+}
+
+@media (max-width: 400px) {
+   header {
+    height: 18dvh;
+  }
+  .pokeball_img {
+    height: 100px;
+  }
 }

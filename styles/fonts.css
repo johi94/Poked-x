@@ -51,7 +51,8 @@ h2 {
   font-weight: 500;
 }
 
-.statistics_1, .statistics_2 {
+.statistics_1,
+.statistics_2 {
   font-size: 25px;
   font-weight: 400;
 }
@@ -64,7 +65,8 @@ h2 {
   font-size: 25px;
 }
 
-.nav_btn_left, .nav_btn_right {
+.nav_btn_left,
+.nav_btn_right {
   font-size: 30px;
 }
 
@@ -75,4 +77,57 @@ h2 {
 
 #search_message {
   font-size: 16px;
+}
+
+@media (max-width: 1000px) {
+  h1 {
+    font-size: 70px;
+  }
+  .copyright_footer {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 800px) {
+  h1 {
+    font-size: 100px;
+  }
+  .copyright_footer {
+    font-size: 25px;
+  }
+  .base_stats {
+    font-size: 25px;
+  }
+  .statistics_1,
+  .statistics_2 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 80px;
+  }
+
+  .copyright_footer {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 70px;
+  }
+}
+
+@media (max-width: 400px) {
+  h1 {
+    font-size: 55px;
+  }
+  .h2_open {
+    font-size: 35px;
+  }
+  .type-badge-open {
+    font-size: 25px;
+  }
 }

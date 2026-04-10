@@ -1,7 +1,6 @@
 .search_btn_input {
   display: flex;
   align-items: center;
-  justify-content: center;
   margin-right: 24px;
   gap: 16px;
 }
@@ -74,4 +73,20 @@
 #search_message {
   color: red;  
   margin-top: 5px;
+}
+
+@media (max-width: 800px) {
+   .search_btn_input {
+    margin-right: 0px;
+    margin-left: 24px;
+  }
+}
+
+@media (max-width: 400px) {
+  #search_btn {
+  width: 80px;
+  }
+  #search_input {
+    width: 160px;
+  }
 }

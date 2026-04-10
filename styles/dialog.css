@@ -13,7 +13,7 @@
 }
 
 .pokemon_card_open {
-  height: 700px;      /* dialog's not closing by clicking on the bottom of it */
+  height: 700px; /* dialog's not closing by clicking on the bottom of it */
 }
 
 #open_pokemon_card::backdrop {
@@ -48,7 +48,6 @@
   background: white;
 }
 
-
 .pokedex_number_open {
   color: rgb(150, 150, 150);
   padding-top: 24px;
@@ -62,7 +61,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .pokemon_img_open {
@@ -115,10 +114,10 @@
   color: antiquewhite;
   margin: 24px;
   text-align: center;
-  height: 80px;           
-  display: flex;           
-  align-items: center;     
-  justify-content: center; 
+  height: 80px;
+  display: flex;
+  align-items: safe center;
+  justify-content: center;
   overflow-y: auto;
 }
 
@@ -131,7 +130,6 @@
   color: black;
   padding-left: 16px;
   flex: 1;
-  /* margin-bottom: 24px; */
   padding: 16px;
   border-radius: 12px;
 }
@@ -140,13 +138,13 @@
   color: antiquewhite;
 }
 
-.nav_btns_statistics{
+.nav_btns_statistics {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 24px;
   margin-right: 24px;
-} 
+}
 
 .nav_btn_left {
   background: antiquewhite;
@@ -184,4 +182,92 @@
   background: white;
 }
 
-/*  */
+@media (max-width: 800px) {
+  .pokedex_number_open {
+    padding-left: 16px;
+  }
+  .pokemon_img_type_open {
+    justify-content: center;
+  }
+  .name_type_open {
+    margin-left: 16px;
+  }
+  .flavor_text {
+    margin: 16px;
+  }
+  .nav_btns_statistics {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  .statistics_1 {
+    margin-right: 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  #open_pokemon_card {
+    height: 825px;
+    position: relative;
+  }
+  .pokemon_card_open {
+    height: 820px;
+  }
+  .pokemon_img_type_open {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+  }
+  .name_type_open {
+  margin-left: 15px;
+}
+  .nav_btn_left,
+  .nav_btn_right {
+    position: absolute;
+    top: -240px; 
+    z-index: 10;
+    margin: 0; /
+  }
+  .nav_btn_left {
+    left: 15px;
+  }
+  .nav_btn_right {
+    right: 15px;
+  }
+}
+
+@media (max-width: 500px) {
+  #open_pokemon_card {
+    height: 880px;
+    position: relative;
+  }
+  .pokemon_card_open {
+    height: 860px;
+  }
+  .statistics_open {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: block;
+  }
+  .statistics_divide {
+    display: flex; 
+    flex-wrap: nowrap; 
+    min-width: 450px; 
+  }
+  .nav_btn_left, .nav_btn_right {
+    top: 220px;
+  }
+}
+
+@media (max-width: 400px) {
+  .p_tag_type_open {
+    display: none;
+  }
+  .type-badge-open {
+    height: 40px;
+  }
+    .name_type_open {
+  margin-left: 20px;
+}
+}
+
+
