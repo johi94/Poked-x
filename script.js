@@ -6,7 +6,7 @@ let isLoading = false;
 let totalPokemonCount = 0;
 let allPokemonNamesCache = null; // used for caching / safe Pokémon names
 let isSearchActive = false;
- 
+
 // #start-region renderPokemon on Website and Dialog (pokemon-card)
 
 function renderPokemon(pokemonArray) {
@@ -51,12 +51,14 @@ async function fetchDataJsonPokeApi() {
 
 async function fetchDataJsonPokemonDetails() {
   try {
-    let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`);
+    let response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`,
+    );
     let responseAsJson = await response.json();
 
     totalPokemonCount = responseAsJson.count;
     currentPokemonList = await fetchPokemonData(responseAsJson.results);
-    
+
     resetPaginationValues();
     initializeListeners();
     setupLoadMoreButton();
@@ -85,18 +87,18 @@ function setupLoadMoreButton() {
   }
 }
 
-// function for parallel fetching 
+// function for parallel fetching
 // without for-loop -> no waiting time Pokémons are not loading one after another
 async function fetchPokemonData(resultsArray) {
   const promises = resultsArray.map(async (item) => {
     const response = await fetch(item.url);
     const dataDetails = await response.json();
     if (dataDetails.id >= 10000) {
-      const parts = dataDetails.species.url.split('/');
+      const parts = dataDetails.species.url.split("/");
       dataDetails.id = parts[parts.length - 2];
     }
-    dataDetails.description_text = ""; 
-    dataDetails.isFullDataLoaded = false; 
+    dataDetails.description_text = "";
+    dataDetails.isFullDataLoaded = false;
     return dataDetails;
   });
 
@@ -164,10 +166,10 @@ async function ensurePokemonDetailsLoaded(pokemon) {
 }
 
 function closePokemonCardDialog() {
-    pokemonCardRef.close();
-    pokemonCardRef.classList.remove("opened");
-    document.body.style.overflow = "visible"; // show scrollbar from body again after dialog is closed
-  }
+  pokemonCardRef.close();
+  pokemonCardRef.classList.remove("opened");
+  document.body.style.overflow = "visible"; // show scrollbar from body again after dialog is closed
+}
 
 // #end-region open and close dialog (Pokémon-Card)
 
@@ -177,7 +179,6 @@ async function loadMorePokemon() {
   if (isLoading) return;
   isLoading = true;
   showSpinner();
-
   try {
     const newPokemonData = await fetchAndProcessNextBatch();
     renderNewPokemon(newPokemonData);
@@ -190,20 +191,19 @@ async function loadMorePokemon() {
 }
 
 async function fetchAndProcessNextBatch() {
-  let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`);
+  let response = await fetch(
+    `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${currentOffset}`,
+  );
   let responseAsJson = await response.json();
   let newPokemonData = await fetchPokemonData(responseAsJson.results);
-
   currentPokemonList = currentPokemonList.concat(newPokemonData);
   currentOffset += responseAsJson.results.length;
-
   return newPokemonData;
 }
 
 function renderNewPokemon(newArray) {
   let content = document.getElementById("content");
   let startIndex = currentPokemonList.length - newArray.length;
-
   for (let i = 0; i < newArray.length; i++) {
     content.innerHTML += getPokemonTemplate(newArray[i], startIndex + i);
   }
@@ -222,9 +222,10 @@ function hideSpinner() {
 async function changePokemonCard(newIndex) {
   const listLength = currentPokemonList.length;
   if (isSearchActive) {
-    let nextIndex = (newIndex < 0) ? listLength - 1 : (newIndex >= listLength) ? 0 : newIndex;
+    let nextIndex =
+      newIndex < 0 ? listLength - 1 : newIndex >= listLength ? 0 : newIndex;
     await openPokemonCardDialog(nextIndex);
-    return; 
+    return;
   }
   if (newIndex < 0) {
     await loadAndShowSinglePokemon(1025);
@@ -296,7 +297,7 @@ function prepareSearch(searchTerm, messageContainer) {
   return true;
 }
 
-// function for searching Pokémon 
+// function for searching Pokémon
 async function executeSearch(searchTerm, messageContainer) {
   const foundPokemon = await getFilteredPokemonList(searchTerm);
   if (foundPokemon.length === 0) {
@@ -312,31 +313,35 @@ async function executeSearch(searchTerm, messageContainer) {
 
 // function get names of Pokémon and filter them by their first letters / local cache for names
 async function getFilteredPokemonList(searchTerm) {
-    // proof: list loaded before?
-    if (!allPokemonNamesCache) {
-        console.log("Lade Gesamtliste von API..."); // Nur beim ersten Mal
-        let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0");
-        let data = await response.json();
-        // safe in Cache
-        allPokemonNamesCache = data.results;
-    } else {
-        console.log("Nutze Cache die Suche"); 
-    }
-    // filter in local list 
-    return allPokemonNamesCache.filter(p => p.name.toLowerCase().includes(searchTerm));
+  // proof: list loaded before?
+  if (!allPokemonNamesCache) {
+    console.log("Lade Gesamtliste von API..."); // Nur beim ersten Mal
+    let response = await fetch(
+      "https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0",
+    );
+    let data = await response.json();
+    // safe in Cache
+    allPokemonNamesCache = data.results;
+  } else {
+    console.log("Nutze Cache die Suche");
+  }
+  // filter in local list
+  return allPokemonNamesCache.filter((p) =>
+    p.name.toLowerCase().includes(searchTerm),
+  );
 }
 
 // function for changing "Load more Pokémon" into "Go back to Pokédex"
 function toggleSearchButton(isSearchMode) {
-    const loadMoreBtn = document.getElementById("load_more_pokemon");
-    if (isSearchMode) {
-        loadMoreBtn.innerText = "Go back to Pokédex";
-        loadMoreBtn.onclick = resetPokedex;
-        loadMoreBtn.style.display = "block";
-    } else {
-        loadMoreBtn.innerText = "Load more Pokémon";
-        loadMoreBtn.onclick = loadMorePokemon;
-    }
+  const loadMoreBtn = document.getElementById("load_more_pokemon");
+  if (isSearchMode) {
+    loadMoreBtn.innerText = "Go back to Pokédex";
+    loadMoreBtn.onclick = resetPokedex;
+    loadMoreBtn.style.display = "block";
+  } else {
+    loadMoreBtn.innerText = "Load more Pokémon";
+    loadMoreBtn.onclick = loadMorePokemon;
+  }
 }
 
 function searchEventListener() {
@@ -359,15 +364,15 @@ function searchEventListener() {
 }
 
 function resetPokedex() {
-    isSearchActive = false;
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    currentOffset = 0;
-    limit = 20;
-    currentPokemonList = [];
-    document.getElementById("search_input").value = "";
-    document.getElementById("search_message").innerText = "";
-    toggleSearchButton(false); 
-    fetchDataJsonPokemonDetails();
+  isSearchActive = false;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  currentOffset = 0;
+  limit = 20;
+  currentPokemonList = [];
+  document.getElementById("search_input").value = "";
+  document.getElementById("search_message").innerText = "";
+  toggleSearchButton(false);
+  fetchDataJsonPokemonDetails();
 }
 
 // #end-region search Pokémon

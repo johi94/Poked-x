@@ -60,6 +60,8 @@ main {
 
 .pokemon_card:hover {
   cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
 }
 
 .number_name_types {

@@ -46,6 +46,8 @@
 .close_pokemon_card_btn:hover {
   cursor: pointer;
   background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
 }
 
 .pokedex_number_open {
@@ -175,11 +177,15 @@
 .nav_btn_left:hover {
   cursor: pointer;
   background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
 }
 
 .nav_btn_right:hover {
   cursor: pointer;
   background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
 }
 
 @media (max-width: 800px) {
