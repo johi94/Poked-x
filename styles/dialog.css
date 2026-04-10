@@ -135,7 +135,7 @@
 }
 
 .base_stats {
-  color: antiquewhite;
+  color: black;
 }
 
 .nav_btns_statistics {
@@ -247,6 +247,13 @@
     overflow-x: auto;
     overflow-y: hidden;
     display: block;
+  }
+  .statistics_open::-webkit-scrollbar {
+    height: 8px;
+  }
+  .statistics_open::-webkit-scrollbar-thumb {
+    background: antiquewhite;
+    border-radius: 10px;
   }
   .statistics_divide {
     display: flex; 
