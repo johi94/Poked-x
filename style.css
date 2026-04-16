@@ -133,8 +133,30 @@ footer {
   }
 }
 
+.no_results_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 55dvh;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.no_results_container p {
+  text-align: center;
+  background: black;
+  border-radius: 12px;
+  width: 950px;
+  font-size: 50px;
+  font-weight: 700;
+  color: rgb(248, 5, 5);
+}
+
 @media (max-width: 800px) {
-   header {
+  header {
     height: 26dvh;
   }
   .logo_title_container {
@@ -144,7 +166,7 @@ footer {
     flex-direction: column;
     align-items: center;
   }
-   .pokeball_img {
+  .pokeball_img {
     height: 150px;
   }
   footer {
@@ -152,31 +174,4 @@ footer {
   }
 }
 
-@media (max-width: 600px) {
-   header {
-    height: 23dvh;
-  }
-  .pokeball_img {
-    height: 130px;
-  }
-}
 
-@media (max-width: 500px) {
-  .mobile-break {
-    display: block;
-  }
-
-  .copyright_footer {
-    text-align: center; 
-    padding: 0 16px;    
-  }
-}
-
-@media (max-width: 400px) {
-   header {
-    height: 18dvh;
-  }
-  .pokeball_img {
-    height: 100px;
-  }
-}

@@ -210,77 +210,8 @@
   }
 }
 
-@media (max-width: 700px) {
-  #open_pokemon_card {
-    height: 825px;
-    position: relative;
-  }
-  .pokemon_card_open {
-    height: 820px;
-  }
-  .pokemon_img_type_open {
-    flex-direction: column;
-    align-items: center;
-    margin-left: 0;
-  }
-  .name_type_open {
-  margin-left: 15px;
-}
-  .nav_btn_left,
-  .nav_btn_right {
-    position: absolute;
-    top: -240px; 
-    z-index: 10;
-    margin: 0; /
-  }
-  .nav_btn_left {
-    left: 15px;
-  }
-  .nav_btn_right {
-    right: 15px;
-  }
-}
 
-@media (max-width: 500px) {
-  #open_pokemon_card {
-    height: 880px;
-    position: relative;
-  }
-  .pokemon_card_open {
-    height: 860px;
-  }
-  .statistics_open {
-    overflow-x: auto;
-    overflow-y: hidden;
-    display: block;
-  }
-  .statistics_open::-webkit-scrollbar {
-    height: 8px;
-  }
-  .statistics_open::-webkit-scrollbar-thumb {
-    background: antiquewhite;
-    border-radius: 10px;
-  }
-  .statistics_divide {
-    display: flex; 
-    flex-wrap: nowrap; 
-    min-width: 450px; 
-  }
-  .nav_btn_left, .nav_btn_right {
-    top: 220px;
-  }
-}
 
-@media (max-width: 400px) {
-  .p_tag_type_open {
-    display: none;
-  }
-  .type-badge-open {
-    height: 40px;
-  }
-    .name_type_open {
-  margin-left: 20px;
-}
-}
+
 
 

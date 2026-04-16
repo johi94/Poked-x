@@ -104,30 +104,4 @@ h2 {
   }
 }
 
-@media (max-width: 600px) {
-  h1 {
-    font-size: 80px;
-  }
 
-  .copyright_footer {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 500px) {
-  h1 {
-    font-size: 70px;
-  }
-}
-
-@media (max-width: 400px) {
-  h1 {
-    font-size: 55px;
-  }
-  .h2_open {
-    font-size: 35px;
-  }
-  .type-badge-open {
-    font-size: 25px;
-  }
-}

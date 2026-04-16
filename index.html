@@ -26,23 +26,25 @@
          <img src="./assets/img/pokeball.png" alt="Pokeball" class="pokeball_img" />
          <h1>Pokedéx</h1>
         </div>
-        <div class="search_btn_input">
-         <button id="search_btn" onclick="searchPokemon()">search</button>
-         <input id="search_input" type="search" placeholder="search Pokémon" title="search">
-         <div id="search_message"></div>
+        <div class="input_wrapper">
+         <div class="search_btn_input">
+          <button id="search_btn" onclick="searchPokemon()">search</button>
+          <input id="search_input" type="search" placeholder="search Pokémon" title="search">
+         </div>
+          <div id="search_message"></div> 
         </div>
       </div>
     </header>
     <main>
      <section class="content_section">
       <div id="content"></div>
-       <div id="loading_spinner" class="spinner_container" style="display: none;">
+       <div id="loading_spinner" class="spinner_container">
         <img src="./assets/img/pokeball_loading_spinner.png" class="pokeball_spinning" alt="Loading...">
          <p>Loading more Pokémon...</p>
        </div>
      </section>
      <section class="load_pokemon_section">
-      <button id="load_more_pokemon">Load more Pokémon</button>
+      <button id="load_more_pokemon" style="display: none;">Load more Pokémon</button>
      </section>
     </main>
     <footer>
