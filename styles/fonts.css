@@ -79,6 +79,11 @@ h2 {
   font-size: 16px;
 }
 
+.no_results_container p {
+  font-size: 50px;
+  font-weight: 700;
+}
+
 @media (max-width: 1000px) {
   h1 {
     font-size: 70px;
@@ -86,11 +91,17 @@ h2 {
   .copyright_footer {
     font-size: 30px;
   }
+  .no_results_container p {
+  font-size: 40px;
+  }
 }
 
 @media (max-width: 800px) {
   h1 {
     font-size: 80px;
+  }
+   .no_results_container p {
+  font-size: 30px;
   }
   .copyright_footer {
     font-size: 25px;
@@ -104,9 +115,18 @@ h2 {
   }
 }
 
+@media (max-width: 600px) {
+   .no_results_container p {
+  font-size: 25px;
+  }
+}
+
 @media (max-width: 500px) {
   h1 {
     font-size: 65px;
+  }
+   .no_results_container p {
+  font-size: 20px;
   }
   .copyright_footer {
     font-size: 20px;
@@ -116,5 +136,8 @@ h2 {
  @media (max-width: 400px) {
   h1 {
     font-size: 55px;
+  }
+    .no_results_container p {
+  font-size: 16px;
   }
 }

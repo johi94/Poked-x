@@ -57,6 +57,7 @@
   width: 200px;
   border-radius: 15px;
   background: antiquewhite;
+  margin-bottom: 20px;
 }
 
 #load_more_pokemon:hover {

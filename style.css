@@ -129,7 +129,7 @@ footer {
   width: 100%;
   min-height: 60dvh;
   text-align: center;
-  padding: 20px;
+  margin-top: 20px;
   box-sizing: border-box;
 }
 
@@ -138,15 +138,14 @@ footer {
   background: rgb(254, 204, 0);
   border-radius: 12px;
   width: 950px;
-  font-size: 50px;
-  font-weight: 700;
   color: black;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .no_pokemon_found_img {
   width: 500px;
   height: 500px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 1000px) {
@@ -158,6 +157,13 @@ footer {
   }
   footer {
     height: 18dvh;
+  }
+  .no_results_container p {
+    width: 750px;
+  }
+  .no_pokemon_found_img {
+    width: 450px;
+    height: 450px;
   }
 }
 
@@ -175,13 +181,26 @@ footer {
   .pokeball_img {
     height: 130px;
   }
-
+  .no_results_container {
+    min-height: 50dvh;
+  }
+  .no_results_container p {
+    width: 550px;
+  }
+  .no_pokemon_found_img {
+    width: 350px;
+    height: 350px;
+    margin-bottom: 20px;
+  }
   footer {
-    height: 12dvh;
+    height: 15dvh;
   }
 }
 
 @media (max-width: 600px) {
+  .no_results_container p {
+    width: 460px;
+  }
   .copyright_footer {
     text-align: center;
   }
@@ -199,6 +218,9 @@ footer {
   .pokeball_img {
     height: 120px;
   }
+  .no_results_container p {
+    width: 380px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -211,5 +233,15 @@ footer {
   }
   h1 {
     padding-left: 8px;
+  }
+   .no_results_container p {
+    width: 300px;
+  }
+  .no_pokemon_found_img {
+    width: 300px;
+    height: 300px;
+  }
+  footer {
+    height: 18dvh;
   }
 }
