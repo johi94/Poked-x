@@ -73,7 +73,8 @@ function getPokemonCardTemplate(pokemon, index) {
 function getNoPokemonFoundTemplate() {
     return /*html*/ `
       <div class="no_results_container">
-        <p>No Pokémon found with these letters.</p>
+       <p>No Pokémon found with these letters.</p>
+       <img class="no_pokemon_found_img" src="./assets/img/no_pokemon_found.png" alt="No Pokémon found">
       </div>
     `;
 }

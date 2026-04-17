@@ -103,13 +103,22 @@
     margin-right: 0px;
     margin-left: 24px;
   }
+   .input_wrapper {
+    margin-right: 0;
+    padding-top: 0;
+  }
+  #search_message {
+    padding-left: 32px;
+  }
 }
 
 @media (max-width: 400px) {
-  #search_btn {
-    width: 80px;
+  .search_btn_input {
+    margin-left: 0;
   }
-  #search_input {
-    width: 160px;
+   #search_message {
+    padding-left: 0;
   }
 }
+
+
