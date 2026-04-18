@@ -92,7 +92,7 @@ h2 {
     font-size: 30px;
   }
   .no_results_container p {
-  font-size: 40px;
+    font-size: 40px;
   }
 }
 
@@ -100,14 +100,17 @@ h2 {
   h1 {
     font-size: 80px;
   }
-   .no_results_container p {
-  font-size: 30px;
+  .h2_open {
+    font-size: 30px;
+  }
+  .no_results_container p {
+    font-size: 30px;
   }
   .copyright_footer {
     font-size: 25px;
   }
   .base_stats {
-    font-size: 25px;
+    font-size: 28px;
   }
   .statistics_1,
   .statistics_2 {
@@ -115,9 +118,32 @@ h2 {
   }
 }
 
+@media (max-width: 700px) {
+  .p_tag_type_open {
+    font-size: 25px;
+  }
+  .type-badge-open {
+    font-size: 20px;
+  }
+  .base_stats {
+    font-size: 23px;
+  }
+  .statistics_1,
+  .statistics_2 {
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 600px) {
-   .no_results_container p {
-  font-size: 25px;
+   .h2_open {
+    font-size: 32px;
+  }
+  .no_results_container p {
+    font-size: 25px;
+  }
+  .nav_btn_left,
+  .nav_btn_right {
+    font-size: 25px;
   }
 }
 
@@ -125,19 +151,38 @@ h2 {
   h1 {
     font-size: 65px;
   }
-   .no_results_container p {
-  font-size: 20px;
+  .h2_open {
+    font-size: 20px;
+  }
+  .p_tag_type_open {
+    font-size: 18px;
+  }
+  .type-badge-open {
+    font-size: 16px;
+  }
+  .no_results_container p {
+    font-size: 20px;
+  }
+    .flavor_text {
+    font-size: 16px;
+  }
+  .base_stats {
+    font-size: 20px;
+  }
+  .statistics_1,
+  .statistics_2 {
+    font-size: 18px;
   }
   .copyright_footer {
     font-size: 20px;
   }
 }
 
- @media (max-width: 400px) {
+@media (max-width: 400px) {
   h1 {
     font-size: 55px;
   }
-    .no_results_container p {
-  font-size: 16px;
+  .no_results_container p {
+    font-size: 16px;
   }
 }

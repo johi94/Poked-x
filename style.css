@@ -137,6 +137,9 @@ footer {
   text-align: center;
   background: rgb(254, 204, 0);
   border-radius: 12px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: black;
   width: 950px;
   color: black;
   margin-bottom: 20px;
@@ -185,7 +188,7 @@ footer {
     min-height: 50dvh;
   }
   .no_results_container p {
-    width: 550px;
+    width: 580px;
   }
   .no_pokemon_found_img {
     width: 350px;
@@ -199,7 +202,7 @@ footer {
 
 @media (max-width: 600px) {
   .no_results_container p {
-    width: 460px;
+    width: 480px;
   }
   .copyright_footer {
     text-align: center;
