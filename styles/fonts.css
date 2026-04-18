@@ -17,7 +17,7 @@ h2 {
 }
 
 .p_tag_type_open {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 300;
 }
 
@@ -88,6 +88,9 @@ h2 {
   h1 {
     font-size: 70px;
   }
+  .h2_open {
+    font-size: 35px;
+  }
   .copyright_footer {
     font-size: 30px;
   }
@@ -102,6 +105,12 @@ h2 {
   }
   .h2_open {
     font-size: 30px;
+  }
+  .p_tag_type_open {
+    font-size: 25px;
+  }
+  .type-badge-open {
+    font-size: 20px;
   }
   .no_results_container p {
     font-size: 30px;
@@ -119,11 +128,8 @@ h2 {
 }
 
 @media (max-width: 700px) {
-  .p_tag_type_open {
-    font-size: 25px;
-  }
-  .type-badge-open {
-    font-size: 20px;
+  .h2_open {
+    font-size: 28px;
   }
   .base_stats {
     font-size: 23px;
@@ -136,7 +142,13 @@ h2 {
 
 @media (max-width: 600px) {
    .h2_open {
-    font-size: 32px;
+    font-size: 30px;
+  }
+  .p_tag_type_open {
+    font-size: 30px;
+  }
+  .type-badge-open {
+    font-size: 25px;
   }
   .no_results_container p {
     font-size: 25px;
@@ -151,7 +163,7 @@ h2 {
   h1 {
     font-size: 65px;
   }
-  .h2_open {
+   .h2_open {
     font-size: 20px;
   }
   .p_tag_type_open {
