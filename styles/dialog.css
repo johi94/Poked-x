@@ -196,9 +196,8 @@
 
 @media (max-width: 800px) {
   #open_pokemon_card {
-    height: 620px;
+    height: 680px;
     width: 600px;
-    overflow-y: hidden;
   }
   .pokemon_card_open {
     height: 675px;
@@ -238,7 +237,7 @@
 
 @media (max-width: 700px) {
   #open_pokemon_card {
-    height: 700px;
+    height: 680px;
     width: 550px;
     overflow-y: visible;
   }
