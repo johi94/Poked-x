@@ -350,27 +350,24 @@ function prepareSearch(searchTerm, messageContainer) {
   return true;
 }
 
-// function that looks faor matching Pokémon / shows a list or a message if nothing is founf
-
 async function executeSearch(searchTerm) {
-  const foundPokemon = await getFilteredPokemonList(searchTerm);
   const content = document.getElementById("content");
-
+  const foundPokemon = currentPokemonList.filter((p) =>
+    p.name.toLowerCase().includes(searchTerm)
+  );
   if (foundPokemon.length === 0) {
-    isSearchActive = false;
-
+    isSearchActive = true; 
     content.innerHTML = getNoPokemonFoundTemplate();
-
     toggleSearchButton(true);
-    hideSpinner(); 
+    hideSpinner();
   } else {
     isSearchActive = true;
-    currentPokemonList = await fetchPokemonData(foundPokemon);                // show all Pokémon with the included letters
-    toggleSearchButton(true);                                                 // button get back is displayed
-    renderPokemon(currentPokemonList);
+    toggleSearchButton(true);
+    renderPokemon(foundPokemon); 
     hideSpinner();
   }
 }
+
 
 // function get names of Pokémon and filter them by their first letters / local cache for names
 async function getFilteredPokemonList(searchTerm) {
@@ -427,14 +424,10 @@ function searchEventListener() {
 
 function resetPokedex() {
   isSearchActive = false;
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  currentOffset = 0;
-  limit = 20;
-  currentPokemonList = [];
   document.getElementById("search_input").value = "";
   document.getElementById("search_message").innerText = "";
   toggleSearchButton(false);
-  fetchDataJsonPokemonDetails();
+  renderPokemon(currentPokemonList); 
 }
 
 // #end-region search Pokémon
