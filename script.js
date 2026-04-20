@@ -269,26 +269,42 @@ function hideSpinner() {
   }
 }
 
+// function getNextPokemonIndex(newIndex, listLength) {
+//   if (isSearchActive) {
+//     return newIndex < 0 ? listLength - 1 : newIndex >= listLength ? 0 : newIndex;   // in searched list of Pokémon: click previous on the first go to last in the list and vice versa
+//   }
+//   if (newIndex < 0) return 1024; // Index for Pokémon 1025 / click previous on the first Pokémon in the Pokédex you get to the last one
+//   if (newIndex >= 1025) return 0; // click forward on the last Pokemon with Nr. 1025 you get back to the first Pokémon in the Pokédex
+//   return newIndex;
+// }
+
 function getNextPokemonIndex(newIndex, listLength) {
-  if (isSearchActive) {
-    return newIndex < 0 ? listLength - 1 : newIndex >= listLength ? 0 : newIndex;   // in searched list of Pokémon: click previous on the first go to last in the list and vice versa
-  }
-  if (newIndex < 0) return 1024; // Index for Pokémon 1025 / click previous on the first Pokémon in the Pokédex you get to the last one
-  if (newIndex >= 1025) return 0; // click forward on the last Pokemon with Nr. 1025 you get back to the first Pokémon in the Pokédex
-  return newIndex;
+    if (newIndex < 0) {
+        return listLength - 1;
+    }
+    if (newIndex >= listLength) {
+        return 0;
+    }
+    return newIndex;
 }
 
-async function changePokemonCard(newIndex) {
-  const listLength = currentPokemonList.length;                    // checks how many Pokémon are loaded in the memory
-  const targetIndex = getNextPokemonIndex(newIndex, listLength);  // call for the navigation function before
+// async function changePokemonCard(newIndex) {
+//   const listLength = currentPokemonList.length;                    // checks how many Pokémon are loaded in the memory
+//   const targetIndex = getNextPokemonIndex(newIndex, listLength);  // call for the navigation function before
 
-  if (!isSearchActive && targetIndex >= listLength) {            // check if you want to load a Pokémon that has not been fetched at this moment (not shown on page)
-    await loadAndShowSinglePokemon(targetIndex + 1);            // in this case one more Pokémon is fetched from the API
-  } else if (!isSearchActive && newIndex >= 1025) {            // handles the limit with the last Pokémon in the list
-    renderPokemonCard(0);
-  } else {
-    await openPokemonCardDialog(targetIndex);                // if Pokémon exists update the dialog content
-  }
+//   if (!isSearchActive && targetIndex >= listLength) {            // check if you want to load a Pokémon that has not been fetched at this moment (not shown on page)
+//     await loadAndShowSinglePokemon(targetIndex + 1);            // in this case one more Pokémon is fetched from the API
+//   } else if (!isSearchActive && newIndex >= 1025) {            // handles the limit with the last Pokémon in the list
+//     renderPokemonCard(0);
+//   } else {
+//     await openPokemonCardDialog(targetIndex);                // if Pokémon exists update the dialog content
+//   }
+// }
+
+async function changePokemonCard(newIndex) {
+    const listLength = currentPokemonList.length;
+    const targetIndex = getNextPokemonIndex(newIndex, listLength);
+    await openPokemonCardDialog(targetIndex);
 }
 
 async function fetchSinglePokemonData(pokemonId) {
@@ -349,6 +365,28 @@ function prepareSearch(searchTerm, messageContainer) {
   messageContainer.innerText = "";
   return true;
 }
+
+// function that looks faor matching Pokémon / shows a list or a message if nothing is founf
+
+// async function executeSearch(searchTerm) {
+//   const foundPokemon = await getFilteredPokemonList(searchTerm);
+//   const content = document.getElementById("content");
+
+//   if (foundPokemon.length === 0) {
+//     isSearchActive = false;
+
+//     content.innerHTML = getNoPokemonFoundTemplate();
+
+//     toggleSearchButton(true);
+//     hideSpinner(); 
+//   } else {
+//     isSearchActive = true;
+//     currentPokemonList = await fetchPokemonData(foundPokemon);                // show all Pokémon with the included letters
+//     toggleSearchButton(true);                                                 // button get back is displayed
+//     renderPokemon(currentPokemonList);
+//     hideSpinner();
+//   }
+// }
 
 async function executeSearch(searchTerm) {
   const content = document.getElementById("content");
@@ -421,6 +459,18 @@ function searchEventListener() {
     });
   }
 }
+
+// function resetPokedex() {
+//   isSearchActive = false;
+//   window.scrollTo({ top: 0, behavior: "smooth" });
+//   currentOffset = 0;
+//   limit = 20;
+//   currentPokemonList = [];
+//   document.getElementById("search_input").value = "";
+//   document.getElementById("search_message").innerText = "";
+//   toggleSearchButton(false);
+//   fetchDataJsonPokemonDetails();
+// }
 
 function resetPokedex() {
   isSearchActive = false;
