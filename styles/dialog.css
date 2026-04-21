@@ -205,6 +205,12 @@
   .pokedex_number_open {
     padding-left: 16px;
   }
+  .pokedex_number {
+    padding-top: 8px;
+  }
+  h2 {
+    padding-bottom: 8px;
+  }
   .pokemon_img_circle_container {
     width: 200px;
     height: 200px;

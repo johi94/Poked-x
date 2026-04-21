@@ -103,6 +103,9 @@ h2 {
   h1 {
     font-size: 80px;
   }
+  h2 {
+    font-size: 25px;
+  }
   .h2_open {
     font-size: 30px;
   }
@@ -125,9 +128,18 @@ h2 {
   .statistics_2 {
     font-size: 20px;
   }
+  .pokedex_number {
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 700px) {
+  h2 {
+    font-size: 20px;
+  }
+  .type-badge {
+    font-size: 18px;
+  }
   .h2_open {
     font-size: 28px;
   }
@@ -141,7 +153,16 @@ h2 {
 }
 
 @media (max-width: 600px) {
-   .h2_open {
+  .pokedex_number {
+    font-size: 18px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+  .type-badge {
+    font-size: 16px;
+  }
+  .h2_open {
     font-size: 30px;
   }
   .p_tag_type_open {
@@ -163,7 +184,7 @@ h2 {
   h1 {
     font-size: 65px;
   }
-   .h2_open {
+  .h2_open {
     font-size: 20px;
   }
   .p_tag_type_open {
@@ -175,7 +196,7 @@ h2 {
   .no_results_container p {
     font-size: 20px;
   }
-    .flavor_text {
+  .flavor_text {
     font-size: 16px;
   }
   .base_stats {

@@ -6,7 +6,7 @@ let isLoading = false;             // Boolean -> it's not possible to click Load
 let totalPokemonCount = 0;        // information how many Pokémon are inside the Pokédex
 let allPokemonNamesCache = null; // used for caching / safe Pokémon names / no need to ask the API every time for the names
 let isSearchActive = false;     // User is inside Pokédex or search-mode / <button> is "Load More Pokémon" or "Go back to Pokedex"
-let filteredPokemonList = [];  // after executeSearch dis empty Array is filled
+let filteredPokemonList = [];  // after executeSearch this empty Array is filled
 
 // #start-region renderPokemon on Website and Dialog (pokemon-card)
 
@@ -18,15 +18,6 @@ function renderPokemon(pokemonArray) {
     content.innerHTML += getPokemonTemplate(pokemon, i); // get template-function to add informations about the Pokémon to the container
   }
 }
-
-// function renderPokemonCard(index) {
-//   let pokemonCardContent = document.getElementById("pokemon_card_content"); 
-//   pokemonCardContent.innerHTML = "";
-//   let pokemon = currentPokemonList[index];                                    // gets data from current Pokémon list with Index
-//   if (pokemon) {                                                             // if asks if Pokémon is existing at this Index
-//     pokemonCardContent.innerHTML = getPokemonCardTemplate(pokemon, index);  // adds informations to dialog-container
-//   }
-// }
 
 function renderPokemonCard(index) {
   let pokemonCardContent = document.getElementById("pokemon_card_content"); 
@@ -86,9 +77,10 @@ async function loadAndProcessPokemonData() {
   const responseAsJson = await response.json();
 
   totalPokemonCount = responseAsJson.count;                                             // API tells how many Poké exist in total
-  currentPokemonList = await fetchPokemonData(responseAsJson.results);                 // first API call obtain names and links -> fetchPokémonData calls more informations
+  const newBatch = await fetchPokemonData(responseAsJson.results);
+  currentPokemonList = currentPokemonList.concat(newBatch);                            // with .concat add data
+  currentOffset += responseAsJson.results.length;
 
-  resetPaginationValues();
   initializeListeners();
   setupLoadMoreButton();
   renderPokemon(currentPokemonList);
@@ -109,7 +101,7 @@ async function fetchDataJsonPokemonDetails() {
 }
 
 function resetPaginationValues() {
-  currentOffset = 20;                                 // tells web page to get the next batch of Pokémon after number 20
+  currentOffset = 0;                                 // get next batch of Pokémon after 0
   limit = 20;                                        // "asks" API to send 20 more Pokémon after click on load more
 }
 
@@ -166,21 +158,10 @@ async function getPokemonDescription(pokemon) {
 
 // #start-region open and close dialog (Pokémon-Card)
 
-// async function openPokemonCardDialog(index) {
-//   let pokemon = currentPokemonList[index];
-
-//   await ensurePokemonDetailsLoaded(pokemon);       // if details of Pokémon aren't loaded code waits here so the informations are loaded
-
-//   renderPokemonCard(index);
-//   pokemonCardRef.showModal();
-//   pokemonCardRef.classList.add("opened");
-//   document.body.style.overflow = "hidden";       // scrollbar is not useable while dialog is open
-// }
-
 async function openPokemonCardDialog(index) {
-  let listToUse = isSearchActive ? filteredPokemonList : currentPokemonList;
-  let pokemon = listToUse[index];
-  await ensurePokemonDetailsLoaded(pokemon);
+  let listToUse = isSearchActive ? filteredPokemonList : currentPokemonList;  // are we in search mode? if yes use filteredPokemonList : if no use currentPokemonList
+  let pokemon = listToUse[index];                                            // find Pokémon with index
+  await ensurePokemonDetailsLoaded(pokemon);                                // wait for the details in the Pokémon cards
   renderPokemonCard(index); 
   pokemonCardRef.showModal();
   pokemonCardRef.classList.add("opened");
@@ -290,15 +271,6 @@ function hideSpinner() {
   }
 }
 
-// function getNextPokemonIndex(newIndex, listLength) {
-//   if (isSearchActive) {
-//     return newIndex < 0 ? listLength - 1 : newIndex >= listLength ? 0 : newIndex;   // in searched list of Pokémon: click previous on the first go to last in the list and vice versa
-//   }
-//   if (newIndex < 0) return 1024; // Index for Pokémon 1025 / click previous on the first Pokémon in the Pokédex you get to the last one
-//   if (newIndex >= 1025) return 0; // click forward on the last Pokemon with Nr. 1025 you get back to the first Pokémon in the Pokédex
-//   return newIndex;
-// }
-
 function getNextPokemonIndex(newIndex, listLength) {
     if (newIndex < 0) {
         return listLength - 1;
@@ -308,18 +280,6 @@ function getNextPokemonIndex(newIndex, listLength) {
     }
     return newIndex;
 }
-
-// async function changePokemonCard(newIndex) {
-//   const listLength = currentPokemonList.length;                    // checks how many Pokémon are loaded in the memory
-//   const targetIndex = getNextPokemonIndex(newIndex, listLength);  // call for the navigation function before
-//   if (!isSearchActive && targetIndex >= listLength) {            // check if you want to load a Pokémon that has not been fetched at this moment (not shown on page)
-//     await loadAndShowSinglePokemon(targetIndex + 1);            // in this case one more Pokémon is fetched from the API
-//   } else if (!isSearchActive && newIndex >= 1025) {            // handles the limit with the last Pokémon in the list
-//     renderPokemonCard(0);
-//   } else {
-//     await openPokemonCardDialog(targetIndex);                // if Pokémon exists update the dialog content
-//   }
-// }
 
 async function changePokemonCard(newIndex) {
     const listLength = isSearchActive ? filteredPokemonList.length : currentPokemonList.length;
@@ -337,22 +297,6 @@ async function fetchSinglePokemonData(pokemonId) {
   let pokemon = await response.json();
   pokemon.description_text = await getPokemonDescription(pokemon);
   return pokemon;
-}
-
-// function for just in time rendering of a Pokémon card that hasn't been loaded yet
-async function loadAndShowSinglePokemon(pokemonId) {
-  try {
-    let pokemon = await fetchSinglePokemonData(pokemonId);
-    let pokemonCardContent = document.getElementById("pokemon_card_content");
-
-    pokemonCardContent.innerHTML = getPokemonCardTemplate(
-      pokemon,
-      pokemonId - 1,
-    );
-  } catch (error) {
-    console.error("error while loading this Pokémon card:", error);
-    renderPokemonCard(currentPokemonList.length - 1);
-  }
 }
 
 // #end-region load more Pokémon
@@ -386,41 +330,17 @@ function prepareSearch(searchTerm, messageContainer) {
   return true;
 }
 
-// function that looks for matching Pokémon / shows a list or a message if nothing is founf
-
-// async function executeSearch(searchTerm) {
-//   const foundPokemon = await getFilteredPokemonList(searchTerm);
-//   const content = document.getElementById("content");
-
-//   if (foundPokemon.length === 0) {
-//     isSearchActive = false;
-
-//     content.innerHTML = getNoPokemonFoundTemplate();
-
-//     toggleSearchButton(true);
-//     hideSpinner(); 
-//   } else {
-//     isSearchActive = true;
-//     currentPokemonList = await fetchPokemonData(foundPokemon);                // show all Pokémon with the included letters
-//     toggleSearchButton(true);                                                 // button get back is displayed
-//     renderPokemon(currentPokemonList);
-//     hideSpinner();
-//   }
-// }
-
-
 async function executeSearch(searchTerm) {
   const content = document.getElementById("content");
-  filteredPokemonList = currentPokemonList.filter((p) =>
-    p.name.toLowerCase().includes(searchTerm)
+  filteredPokemonList = currentPokemonList.filter((p) =>      // checks Pokémon list, only keeps the ones who match the searched letters
+    p.name.toLowerCase().includes(searchTerm)                // search is case-insensitive
   );
-
-  if (filteredPokemonList.length === 0) {
+  if (filteredPokemonList.length === 0) {                   // are the letters matching any Pokémon? if not show message
     isSearchActive = true; 
     content.innerHTML = getNoPokemonFoundTemplate();
     toggleSearchButton(true);
     hideSpinner();
-  } else {
+  } else {                                                // if searche matched show filteredPokemonList
     isSearchActive = true;
     toggleSearchButton(true);
     renderPokemon(filteredPokemonList); 
@@ -428,12 +348,11 @@ async function executeSearch(searchTerm) {
   }
 }
 
-
 // function get names of Pokémon and filter them by their first letters / local cache for names
 async function getFilteredPokemonList(searchTerm) {
   // proof: list loaded before?
   if (!allPokemonNamesCache) {
-    console.log("Lade Gesamtliste von API..."); // Nur beim ersten Mal
+    console.log("Lade Gesamtliste von API..."); 
     let response = await fetch(
       "https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0",
     );
@@ -481,18 +400,6 @@ function searchEventListener() {
     });
   }
 }
-
-// function resetPokedex() {
-//   isSearchActive = false;
-//   window.scrollTo({ top: 0, behavior: "smooth" });
-//   currentOffset = 0;
-//   limit = 20;
-//   currentPokemonList = [];
-//   document.getElementById("search_input").value = "";
-//   document.getElementById("search_message").innerText = "";
-//   toggleSearchButton(false);
-//   fetchDataJsonPokemonDetails();
-// }
 
 function resetPokedex() {
   isSearchActive = false;

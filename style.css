@@ -53,8 +53,8 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 500px;
-  width: 350px;
+  height: 450px;
+  width: 300px;
   border-radius: 25px;
 }
 
@@ -158,6 +158,14 @@ footer {
   header {
     height: 18dvh;
   }
+  .pokemon_card {
+    height: 400px;
+    width: 250px;
+  }
+  .pokemon_img {
+    height: 200px;
+    width: 200px;
+  }
   footer {
     height: 18dvh;
   }
@@ -184,6 +192,17 @@ footer {
   .pokeball_img {
     height: 130px;
   }
+  .pokemon_card {
+    height: 350px;
+    width: 200px;
+  }
+  .pokemon_img {
+    height: 150px;
+    width: 150px;
+  }
+   .type-badge {
+    width: 70px;
+  }
   .no_results_container {
     min-height: 50dvh;
   }
@@ -200,7 +219,26 @@ footer {
   }
 }
 
+@media (max-width: 700px) {
+   .pokemon_card {
+    height: 280px;
+    width: 150px;
+  }
+  .pokemon_img {
+    height: 120px;
+    width: 120px;
+  }
+  .type-badge {
+    height: 30px;
+    width: 60px;
+  }
+}
+
 @media (max-width: 600px) {
+  .type-badge {
+    height: 30px;
+    width: 55px;
+  }
   .no_results_container p {
     width: 480px;
   }
