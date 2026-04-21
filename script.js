@@ -78,7 +78,7 @@ async function loadAndProcessPokemonData() {
 
   totalPokemonCount = responseAsJson.count;                                             // API tells how many Poké exist in total
   const newBatch = await fetchPokemonData(responseAsJson.results);
-  currentPokemonList = currentPokemonList.concat(newBatch);                            // with .concat add data
+  currentPokemonList = currentPokemonList.concat(newBatch);                            // with .concat add data / merge Arrays into one / add data don't delete and fetch everything new
   currentOffset += responseAsJson.results.length;
 
   initializeListeners();
