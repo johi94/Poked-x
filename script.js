@@ -22,7 +22,7 @@ function renderPokemon(pokemonArray) {
 function renderPokemonCard(index) {
   let pokemonCardContent = document.getElementById("pokemon_card_content"); 
   pokemonCardContent.innerHTML = "";
-  let listToUse = isSearchActive ? filteredPokemonList : currentPokemonList;
+  let listToUse = isSearchActive ? filteredPokemonList : currentPokemonList;  // are we in search mode? if yes use filteredPokemonList : if no use currentPokemonList
   let pokemon = listToUse[index];
   if (pokemon) {
     pokemonCardContent.innerHTML = getPokemonCardTemplate(pokemon, index);
