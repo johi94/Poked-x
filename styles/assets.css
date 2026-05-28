@@ -99,6 +99,11 @@
   color: #333;
 }
 
+#loading_spinner.small {
+  transform: scale(0.4);
+  margin-top: -200px;
+}
+
 @media (max-width: 800px) {
   .search_btn_input {
     margin-right: 0px;

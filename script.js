@@ -221,19 +221,18 @@ function prepareLoadingState() {
 }
 
 async function loadMorePokemon() {
-  if (isLoading) return;                                                  // prevents double clicking Load More Pokémon button
+  if (isLoading) return;
   isLoading = true;
-  const { previousContent, lastIndex } = prepareLoadingState();
+  showSpinner(true);   
   try {
-    const newPokemonData = await fetchAndProcessNextBatch();             // gets next batch of Pokémon out of trhe API
+    const newPokemonData = await fetchAndProcessNextBatch();
     hideSpinner();
-    updateContentAndScroll(previousContent, newPokemonData, lastIndex); // puts old Pokémon back into content container and adds the new ones
+    renderNewPokemon(newPokemonData);
   } catch (error) {
     console.error("Fehler beim Nachladen:", error);
-    document.getElementById("content").innerHTML = previousContent;   // if an error is occuring the page is not blank, it stays with the Pokémon that where loaded before
     hideSpinner();
   } finally {
-    isLoading = false;                                               // isLoading reset -> so more Pokémon can be loaded
+    isLoading = false;
   }
 }
 
@@ -259,9 +258,19 @@ function renderNewPokemon(newArray) {
   }
 }
 
-function showSpinner() {
-  document.getElementById("loading_spinner").style.display = "flex";
-  document.getElementById("load_more_pokemon").style.display = "none";
+function showSpinner(isLoadMore = false) {
+  const spinner = document.getElementById("loading_spinner");
+  const btn = document.getElementById("load_more_pokemon");
+
+  spinner.style.display = "flex";
+  btn.style.display = "none";
+
+  if (isLoadMore) {
+    spinner.classList.add("small");
+  } else {
+    spinner.classList.remove("small");
+    clearContent();
+  }
 }
 
 function hideSpinner() {
@@ -272,19 +281,41 @@ function hideSpinner() {
 }
 
 function getNextPokemonIndex(newIndex, listLength) {
-    if (newIndex < 0) {
-        return listLength - 1;
-    }
-    if (newIndex >= listLength) {
-        return 0;
-    }
-    return newIndex;
+  if (isSearchActive) {
+    return newIndex < 0 ? listLength - 1 : newIndex >= listLength ? 0 : newIndex;
+  }
+  if (newIndex < 0) return 1024;     // Index für Pokémon Nr. 1025 (letztes)
+  if (newIndex >= 1025) return 0;    // Index für Pokémon Nr. 1 (erstes)
+  return newIndex;
 }
 
 async function changePokemonCard(newIndex) {
-    const listLength = isSearchActive ? filteredPokemonList.length : currentPokemonList.length;
-    const targetIndex = getNextPokemonIndex(newIndex, listLength);
+  const listLength = currentPokemonList.length;
+  const targetIndex = getNextPokemonIndex(newIndex, listLength);
+
+  if (!isSearchActive && targetIndex >= listLength) {
+    await loadAndShowSinglePokemon(targetIndex + 1);  // lädt Pokémon nach, das noch nicht geladen ist
+  } else if (!isSearchActive && newIndex >= 1025) {
+    renderPokemonCard(0);
+  } else {
     await openPokemonCardDialog(targetIndex);
+  }
+}
+
+async function loadAndShowSinglePokemon(pokemonId) {
+  try {
+    let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+    if (!response.ok) {
+      throw new Error(`Pokemon mit ID ${pokemonId} nicht gefunden (Status: ${response.status})`);
+    }
+    let pokemon = await response.json();
+    pokemon.description_text = await getPokemonDescription(pokemon);
+    let pokemonCardContent = document.getElementById("pokemon_card_content");
+    pokemonCardContent.innerHTML = getPokemonCardTemplate(pokemon, pokemonId - 1);
+  } catch (error) {
+    console.error("Fehler beim Laden des Sprung-Pokemons:", error);
+    renderPokemonCard(currentPokemonList.length - 1);
+  }
 }
 
 async function fetchSinglePokemonData(pokemonId) {
