@@ -363,27 +363,21 @@ function prepareSearch(searchTerm, messageContainer) {
 
 async function executeSearch(searchTerm) {
   const content = document.getElementById("content");
-  filteredPokemonList = currentPokemonList.filter((p) =>      // checks Pokémon list, only keeps the ones who match the searched letters
-    p.name.toLowerCase().includes(searchTerm)                // search is case-insensitive
-  );
-  if (filteredPokemonList.length === 0) {                   // are the letters matching any Pokémon? if not show message
-    isSearchActive = true; 
+  let matches = await getFilteredPokemonList(searchTerm);
+  isSearchActive = true;
+  toggleSearchButton(true);
+  if (matches.length === 0) {
     content.innerHTML = getNoPokemonFoundTemplate();
-    toggleSearchButton(true);
-    hideSpinner();
-  } else {                                                // if searche matched show filteredPokemonList
-    isSearchActive = true;
-    toggleSearchButton(true);
-    renderPokemon(filteredPokemonList); 
-    hideSpinner();
+    return;
   }
+  filteredPokemonList = await fetchPokemonData(matches);
+  renderPokemon(filteredPokemonList);
 }
 
 // function get names of Pokémon and filter them by their first letters / local cache for names
 async function getFilteredPokemonList(searchTerm) {
   // proof: list loaded before?
   if (!allPokemonNamesCache) {
-    console.log("Lade Gesamtliste von API..."); 
     let response = await fetch(
       "https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0",
     );
