@@ -8,7 +8,7 @@ h1 {
 }
 
 h2 {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 500;
 }
 
@@ -32,7 +32,7 @@ h2 {
 }
 
 .pokedex_number {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 300;
 }
 
@@ -104,7 +104,7 @@ h2 {
     font-size: 80px;
   }
   h2 {
-    font-size: 25px;
+    font-size: 18px;
   }
   .h2_open {
     font-size: 30px;
@@ -129,7 +129,7 @@ h2 {
     font-size: 20px;
   }
   .pokedex_number {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
@@ -139,6 +139,9 @@ h2 {
   }
   .type-badge {
     font-size: 18px;
+  }
+  .pokedex_number {
+    font-size: 16px;
   }
   .h2_open {
     font-size: 28px;
@@ -153,12 +156,6 @@ h2 {
 }
 
 @media (max-width: 600px) {
-  .pokedex_number {
-    font-size: 18px;
-  }
-  h2 {
-    font-size: 18px;
-  }
   .type-badge {
     font-size: 16px;
   }
