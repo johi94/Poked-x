@@ -4,9 +4,9 @@ A Pokédex web app built with vanilla JavaScript that fetches live data
 from the [PokéAPI](https://pokeapi.co/). Browse Pokémon, view their stats,
 types, and details.
 
-🔗 **Live Demo:** [your-link.de](#)
+🔗 **Live Demo:** [[your-link.de](https://pokedex.jonas-hildebrand.de/)](#)
 
-![Screenshot](screenshot.png)
+![Screenshot](img/pokedex.png)
 
 ## Features
 - 🔍 Browse & search Pokémon
